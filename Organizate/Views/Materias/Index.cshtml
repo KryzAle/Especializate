@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Organizate.Materia>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div id="page-wrapper">
+	<div class="row">
+		<div class="col-lg-12">
+			<h1 class="page-header">Materias</h1>
+		</div>
+		<!-- /.col-lg-12 -->
+	</div>
+	<p>
+		@Html.ActionLink("Create New", "Create")
+	</p>
+	<table class="table">
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.mat_nombre)
+			</th>
+			<th></th>
+		</tr>
+
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.mat_nombre)
+				</td>
+				<td>
+					@Html.ActionLink("Edit", "Edit", new { id = item.mat_id }) |
+					@Html.ActionLink("Details", "Details", new { id = item.mat_id }) |
+					@Html.ActionLink("Delete", "Delete", new { id = item.mat_id })
+				</td>
+			</tr>
+		}
+
+	</table>
+	</div>

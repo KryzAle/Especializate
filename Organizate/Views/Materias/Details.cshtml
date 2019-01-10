@@ -1,0 +1,33 @@
+﻿@model Organizate.Materia
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div id="page-wrapper">
+	<div class="row">
+		<div class="col-lg-12">
+			<h1 class="page-header">Detalles Materia</h1>
+		</div>
+		<!-- /.col-lg-12 -->
+	</div>
+	<div>
+		<h4>Materia</h4>
+		<hr />
+		<dl class="dl-horizontal">
+			<dt>
+				@Html.DisplayNameFor(model => model.mat_nombre)
+			</dt>
+
+			<dd>
+				@Html.DisplayFor(model => model.mat_nombre)
+			</dd>
+
+		</dl>
+	</div>
+	<p>
+		@Html.ActionLink("Edit", "Edit", new { id = Model.mat_id }) |
+		@Html.ActionLink("Back to List", "Index")
+	</p>
+	</div>

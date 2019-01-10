@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Organizate.Profesor>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.pro_nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.pro_apellido)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.pro_telefono)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.pro_direccion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.pro_correo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.pro_cedula)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.pro_profesion)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.pro_nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.pro_apellido)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.pro_telefono)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.pro_direccion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.pro_correo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.pro_cedula)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.pro_profesion)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.pro_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.pro_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.pro_id })
+        </td>
+    </tr>
+}
+
+</table>

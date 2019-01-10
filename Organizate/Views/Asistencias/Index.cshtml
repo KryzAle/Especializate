@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Organizate.Asistencia>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.asi_fecha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.asi_hora_inicio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.asi_hora_fin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.asi_tiempo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.asi_contenido)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Estudiante.est_nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tema.tema_nombre)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.asi_fecha)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.asi_hora_inicio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.asi_hora_fin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.asi_tiempo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.asi_contenido)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Estudiante.est_nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tema.tema_nombre)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.asi_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.asi_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.asi_id })
+        </td>
+    </tr>
+}
+
+</table>

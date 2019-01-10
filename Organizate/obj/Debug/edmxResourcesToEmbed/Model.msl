@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DB_A44489_asistenciaModelStoreContainer" CdmEntityContainer="DB_A44489_asistenciaEntities">
+    <EntitySetMapping Name="Asistencia">
+      <EntityTypeMapping TypeName="DB_A44489_asistenciaModel.Asistencia">
+        <MappingFragment StoreEntitySet="Asistencia">
+          <ScalarProperty Name="asi_id" ColumnName="asi_id" />
+          <ScalarProperty Name="asi_fecha" ColumnName="asi_fecha" />
+          <ScalarProperty Name="asi_hora_inicio" ColumnName="asi_hora_inicio" />
+          <ScalarProperty Name="asi_hora_fin" ColumnName="asi_hora_fin" />
+          <ScalarProperty Name="asi_tiempo" ColumnName="asi_tiempo" />
+          <ScalarProperty Name="asi_contenido" ColumnName="asi_contenido" />
+          <ScalarProperty Name="asi_est_id" ColumnName="asi_est_id" />
+          <ScalarProperty Name="asi_tema_id" ColumnName="asi_tema_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Estudiante">
+      <EntityTypeMapping TypeName="DB_A44489_asistenciaModel.Estudiante">
+        <MappingFragment StoreEntitySet="Estudiante">
+          <ScalarProperty Name="est_id" ColumnName="est_id" />
+          <ScalarProperty Name="est_nombre" ColumnName="est_nombre" />
+          <ScalarProperty Name="est_apellido" ColumnName="est_apellido" />
+          <ScalarProperty Name="est_telefono" ColumnName="est_telefono" />
+          <ScalarProperty Name="est_direccion" ColumnName="est_direccion" />
+          <ScalarProperty Name="est_correo" ColumnName="est_correo" />
+          <ScalarProperty Name="est_cedula" ColumnName="est_cedula" />
+          <ScalarProperty Name="est_cole_univ" ColumnName="est_cole_univ" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Horario_Profesor">
+      <EntityTypeMapping TypeName="DB_A44489_asistenciaModel.Horario_Profesor">
+        <MappingFragment StoreEntitySet="Horario_Profesor">
+          <ScalarProperty Name="hor_pro_id" ColumnName="hor_pro_id" />
+          <ScalarProperty Name="hor_pro_dia" ColumnName="hor_pro_dia" />
+          <ScalarProperty Name="hor_pro_hora_inicio" ColumnName="hor_pro_hora_inicio" />
+          <ScalarProperty Name="hor_pro_hora_fin" ColumnName="hor_pro_hora_fin" />
+          <ScalarProperty Name="hor_pro_pro_id" ColumnName="hor_pro_pro_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Inscripcion">
+      <EntityTypeMapping TypeName="DB_A44489_asistenciaModel.Inscripcion">
+        <MappingFragment StoreEntitySet="Inscripcion">
+          <ScalarProperty Name="ins_id" ColumnName="ins_id" />
+          <ScalarProperty Name="ins_fecha" ColumnName="ins_fecha" />
+          <ScalarProperty Name="ins_valor" ColumnName="ins_valor" />
+          <ScalarProperty Name="ins_total_horas" ColumnName="ins_total_horas" />
+          <ScalarProperty Name="ins_saldo" ColumnName="ins_saldo" />
+          <ScalarProperty Name="ins_est_id" ColumnName="ins_est_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Materia">
+      <EntityTypeMapping TypeName="DB_A44489_asistenciaModel.Materia">
+        <MappingFragment StoreEntitySet="Materia">
+          <ScalarProperty Name="mat_id" ColumnName="mat_id" />
+          <ScalarProperty Name="mat_nombre" ColumnName="mat_nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Profesor">
+      <EntityTypeMapping TypeName="DB_A44489_asistenciaModel.Profesor">
+        <MappingFragment StoreEntitySet="Profesor">
+          <ScalarProperty Name="pro_id" ColumnName="pro_id" />
+          <ScalarProperty Name="pro_nombre" ColumnName="pro_nombre" />
+          <ScalarProperty Name="pro_apellido" ColumnName="pro_apellido" />
+          <ScalarProperty Name="pro_telefono" ColumnName="pro_telefono" />
+          <ScalarProperty Name="pro_direccion" ColumnName="pro_direccion" />
+          <ScalarProperty Name="pro_correo" ColumnName="pro_correo" />
+          <ScalarProperty Name="pro_cedula" ColumnName="pro_cedula" />
+          <ScalarProperty Name="pro_profesion" ColumnName="pro_profesion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Profesor_Materia">
+      <EntityTypeMapping TypeName="DB_A44489_asistenciaModel.Profesor_Materia">
+        <MappingFragment StoreEntitySet="Profesor_Materia">
+          <ScalarProperty Name="pro_mat_id" ColumnName="pro_mat_id" />
+          <ScalarProperty Name="pro_mat_pro_id" ColumnName="pro_mat_pro_id" />
+          <ScalarProperty Name="pro_mat_mat_id" ColumnName="pro_mat_mat_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tema">
+      <EntityTypeMapping TypeName="DB_A44489_asistenciaModel.Tema">
+        <MappingFragment StoreEntitySet="Tema">
+          <ScalarProperty Name="tema_id" ColumnName="tema_id" />
+          <ScalarProperty Name="tema_nombre" ColumnName="tema_nombre" />
+          <ScalarProperty Name="tema_pro_mat_id" ColumnName="tema_pro_mat_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
