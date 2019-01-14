@@ -17,7 +17,7 @@ namespace Organizate.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
+        private DB_A44489_asistenciaEntities db = new DB_A44489_asistenciaEntities();
         public AccountController()
         {
         }
@@ -156,13 +156,17 @@ namespace Organizate.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+
                     // Para obtener más información sobre cómo habilitar la confirmación de cuentas y el restablecimiento de contraseña, visite https://go.microsoft.com/fwlink/?LinkID=320771
                     // Enviar correo electrónico con este vínculo
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirmar cuenta", "Para confirmar la cuenta, haga clic <a href=\"" + callbackUrl + "\">aquí</a>");
-
+                    /*Profesor profesor = new Profesor();
+                    profesor.pro_id = user.Id;
+                    profesor.pro_correo = user.Email;
+                    db.Profesor.Add(profesor);
+                    db.SaveChanges();*/
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);

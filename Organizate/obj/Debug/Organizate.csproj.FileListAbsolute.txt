@@ -131,3 +131,4 @@ C:\Users\KryzAle\source\repos\Organizate\obj\Debug\Organizate.csproj.CoreCompile
 C:\Users\KryzAle\source\repos\Organizate\obj\Debug\Organizate.csproj.CopyComplete
 C:\Users\KryzAle\source\repos\Organizate\obj\Debug\Organizate.dll
 C:\Users\KryzAle\source\repos\Organizate\obj\Debug\Organizate.pdb
+C:\Users\KryzAle\source\repos\Organizate\obj\Debug\Organizate.csprojAssemblyReference.cache

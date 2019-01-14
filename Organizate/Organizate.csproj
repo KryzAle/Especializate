@@ -582,6 +582,7 @@
     <Content Include="Views\Profesor_Materia\Details.cshtml" />
     <Content Include="Views\Profesor_Materia\Edit.cshtml" />
     <Content Include="Views\Profesor_Materia\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
