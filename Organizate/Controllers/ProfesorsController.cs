@@ -38,7 +38,7 @@ namespace Organizate.Controllers
         // GET: Profesors/Create
         public ActionResult Create()
         {
-            return View();
+            return RedirectToAction("Register","Account");
         }
 
         // POST: Profesors/Create

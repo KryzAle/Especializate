@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
@@ -147,7 +148,8 @@ namespace Organizate.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model, Profesor profesor)
+
+        public async Task<ActionResult> Register(RegisterViewModel model, Profesor profesor, Horario_Profesor[] horario)
         {
             if (ModelState.IsValid)
             {
@@ -167,7 +169,14 @@ namespace Organizate.Controllers
                     profesor.pro_correo = user.Email;
                     db.Profesor.Add(profesor);
                     db.SaveChanges();
-                    return RedirectToAction("Index", "Home");
+                    if (horario!=null)
+                    foreach (var item in horario)
+                    {
+                        item.hor_pro_pro_id = profesor.pro_id;
+                        db.Horario_Profesor.Add(item);
+                        db.SaveChanges();
+                    }
+                    return RedirectToAction("Index", "Profesors");
                 }
                 AddErrors(result);
             }

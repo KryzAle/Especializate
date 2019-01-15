@@ -37,9 +37,31 @@
 				</div>
 			</div>
 		</div>
+		<div>
+			<table class="table" id="tablita">
+
+				<tr>
+					<th>Tema</th>
+				</tr>
+
+			</table>
+		</div>
 	}
 
 	<div>
 		@Html.ActionLink("Back to List", "Index")
 	</div>
+	<div class="btn-der">
+
+		<button id="adicional" name="adicional" type="button" class="btn btn-warning" onclick="appendText()">Mas+ </button>
 	</div>
+	<script>
+		var posicion = 0;
+		function appendText() {
+			var form1 = document.createElement("tr");
+			form1.innerHTML = '<td><input type="text" class="form - control" id="dia" name="Tema[' + posicion + '].tema_nombre"></td>';
+			posicion++;
+			$("#tablita").append(form1);
+		}
+	</script>
+</div>

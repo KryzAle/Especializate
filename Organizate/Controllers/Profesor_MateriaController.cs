@@ -49,7 +49,7 @@ namespace Organizate.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "pro_mat_id,pro_mat_pro_id,pro_mat_mat_id")] Profesor_Materia profesor_Materia)
+        public ActionResult Create(Profesor_Materia profesor_Materia)
         {
             if (ModelState.IsValid)
             {

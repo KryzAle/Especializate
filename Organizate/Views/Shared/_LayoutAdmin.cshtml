@@ -51,11 +51,13 @@
 				@if (User.IsInRole("Administrador"))
 				{
 					<a class="navbar-brand" href="@Url.Action("IndexAdmin","Home")">Administrador</a>
-				}else
+				}
+				else
 				if (User.IsInRole("Secretaria"))
 				{
 					<a class="navbar-brand" href="@Url.Action("IndexAdmin","Home")">Secretaria</a>
-				}else
+				}
+				else
 				{
 					<a class="navbar-brand" href="@Url.Action("IndexAdmin","Home")">Profesor</a>
 				}
@@ -318,7 +320,7 @@
 	<!-- Bootstrap Core JavaScript -->
 	<script src="~/Content/vendor/bootstrap/js/bootstrap.min.js"></script>
 
-	<!-- Metis 
+	<!-- Metis
 		Plugin JavaScript -->
 	<script src="~/Content/vendor/metisMenu/metisMenu.min.js"></script>
 
@@ -330,6 +332,7 @@
 	<!-- Custom Theme JavaScript -->
 	<script src="~/Content/dist/js/sb-admin-2.js"></script>
 
+	@RenderSection("scripts", required: false)
 </body>
 
 </html>
