@@ -15,9 +15,9 @@ namespace Organizate
     public partial class Horario_Profesor
     {
         public int hor_pro_id { get; set; }
-        public System.DateTime hor_pro_dia { get; set; }
-        public System.DateTime hor_pro_hora_inicio { get; set; }
-        public System.DateTime hor_pro_hora_fin { get; set; }
+        public string hor_pro_dia { get; set; }
+        public System.TimeSpan hor_pro_hora_inicio { get; set; }
+        public System.TimeSpan hor_pro_hora_fin { get; set; }
         public string hor_pro_pro_id { get; set; }
     
         public virtual Profesor Profesor { get; set; }

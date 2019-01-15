@@ -92,9 +92,9 @@
       <PropertyRef Name="hor_pro_id" />
     </Key>
     <Property Name="hor_pro_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="hor_pro_dia" Type="date" Nullable="false" />
-    <Property Name="hor_pro_hora_inicio" Type="date" Nullable="false" />
-    <Property Name="hor_pro_hora_fin" Type="date" Nullable="false" />
+    <Property Name="hor_pro_dia" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="hor_pro_hora_inicio" Type="time" Precision="7" Nullable="false" />
+    <Property Name="hor_pro_hora_fin" Type="time" Precision="7" Nullable="false" />
     <Property Name="hor_pro_pro_id" Type="nvarchar" MaxLength="128" Nullable="false" />
   </EntityType>
   <EntityType Name="Inscripcion">
