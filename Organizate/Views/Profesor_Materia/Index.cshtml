@@ -4,37 +4,39 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
+<div id="page-wrapper">
+	<h2>Index</h2>
 
-<h2>Index</h2>
+	<p>
+		@Html.ActionLink("Create New", "Create")
+	</p>
+	<table class="table">
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.Materia.mat_nombre)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Profesor.pro_nombre)
+			</th>
+			<th></th>
+		</tr>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Materia.mat_nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Profesor.pro_nombre)
-        </th>
-        <th></th>
-    </tr>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.Materia.mat_nombre)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Profesor.pro_nombre)
+				</td>
+				<td>
+					@Html.ActionLink("Edit", "Edit", new { id = item.pro_mat_id }) |
+					@Html.ActionLink("Details", "Details", new { id = item.pro_mat_id }) |
+					@Html.ActionLink("Delete", "Delete", new { id = item.pro_mat_id })
+				</td>
+			</tr>
+		}
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Materia.mat_nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Profesor.pro_nombre)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.pro_mat_id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.pro_mat_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.pro_mat_id })
-        </td>
-    </tr>
-}
-
-</table>
+	</table>
+	</div>

@@ -4,78 +4,80 @@
     ViewBag.Title = "Delete";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
+<div id="page-wrapper">
+	<h2>Delete</h2>
 
-<h2>Delete</h2>
+	<h3>Are you sure you want to delete this?</h3>
+	<div>
+		<h4>Profesor</h4>
+		<hr />
+		<dl class="dl-horizontal">
+			<dt>
+				@Html.DisplayNameFor(model => model.pro_nombre)
+			</dt>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Profesor</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.pro_nombre)
-        </dt>
+			<dd>
+				@Html.DisplayFor(model => model.pro_nombre)
+			</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.pro_nombre)
-        </dd>
+			<dt>
+				@Html.DisplayNameFor(model => model.pro_apellido)
+			</dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.pro_apellido)
-        </dt>
+			<dd>
+				@Html.DisplayFor(model => model.pro_apellido)
+			</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.pro_apellido)
-        </dd>
+			<dt>
+				@Html.DisplayNameFor(model => model.pro_telefono)
+			</dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.pro_telefono)
-        </dt>
+			<dd>
+				@Html.DisplayFor(model => model.pro_telefono)
+			</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.pro_telefono)
-        </dd>
+			<dt>
+				@Html.DisplayNameFor(model => model.pro_direccion)
+			</dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.pro_direccion)
-        </dt>
+			<dd>
+				@Html.DisplayFor(model => model.pro_direccion)
+			</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.pro_direccion)
-        </dd>
+			<dt>
+				@Html.DisplayNameFor(model => model.pro_correo)
+			</dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.pro_correo)
-        </dt>
+			<dd>
+				@Html.DisplayFor(model => model.pro_correo)
+			</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.pro_correo)
-        </dd>
+			<dt>
+				@Html.DisplayNameFor(model => model.pro_cedula)
+			</dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.pro_cedula)
-        </dt>
+			<dd>
+				@Html.DisplayFor(model => model.pro_cedula)
+			</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.pro_cedula)
-        </dd>
+			<dt>
+				@Html.DisplayNameFor(model => model.pro_profesion)
+			</dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.pro_profesion)
-        </dt>
+			<dd>
+				@Html.DisplayFor(model => model.pro_profesion)
+			</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.pro_profesion)
-        </dd>
+		</dl>
 
-    </dl>
+		@using (Html.BeginForm())
+		{
+			@Html.AntiForgeryToken()
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-    }
-</div>
+			<div class="form-actions no-color">
+				<input type="submit" value="Delete" class="btn btn-default" /> |
+				@Html.ActionLink("Back to List", "Index")
+			</div>
+		}
+	</div>
+	</div>
