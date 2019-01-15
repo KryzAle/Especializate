@@ -14,7 +14,11 @@ namespace Organizate.Controllers
         }
         public ActionResult IndexAdmin()
         {
-            return View();
+            if (Request.IsAuthenticated)
+            {
+                return View();
+            }
+            return RedirectToAction("Login", "Account",new { returnUrl = "~/Home/IndexAdmin"});
         }
 
         public ActionResult About()

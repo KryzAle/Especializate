@@ -20,6 +20,14 @@
         <AssociationConnector Association="DB_A44489_asistenciaModel.fk4" ManuallyRouted="false" />
         <AssociationConnector Association="DB_A44489_asistenciaModel.fk3" ManuallyRouted="false" />
         <AssociationConnector Association="DB_A44489_asistenciaModel.fk5" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DB_A44489_asistenciaModel.C__MigrationHistory" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DB_A44489_asistenciaModel.AspNetRoles" Width="1.5" PointX="10.375" PointY="2.5" />
+        <EntityTypeShape EntityType="DB_A44489_asistenciaModel.AspNetUserClaims" Width="1.5" PointX="14.875" PointY="1" />
+        <EntityTypeShape EntityType="DB_A44489_asistenciaModel.AspNetUserLogins" Width="1.5" PointX="14.875" PointY="3.75" />
+        <EntityTypeShape EntityType="DB_A44489_asistenciaModel.AspNetUsers" Width="1.5" PointX="12.625" PointY="1.375" />
+        <AssociationConnector Association="DB_A44489_asistenciaModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="DB_A44489_asistenciaModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="DB_A44489_asistenciaModel.AspNetUserRoles" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
