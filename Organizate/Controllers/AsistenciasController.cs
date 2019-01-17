@@ -22,7 +22,7 @@ namespace Organizate.Controllers
                 ViewBag.ins_est_id = new SelectList(db.Estudiante, "est_id", "est_nombre");
                 return View();
             }
-            return RedirectToAction("Login", "Account", new { returnUrl = "~/Inscripcions/Cita" });
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Asistencia/Cita" });
 
         }
         public ActionResult Index()

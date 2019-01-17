@@ -12,13 +12,18 @@ namespace Organizate.Controllers
 {
     public class TemasController : Controller
     {
+        public static Profesor_Materia profesor_materia;
         private DB_A44489_asistenciaEntities db = new DB_A44489_asistenciaEntities();
 
         // GET: Temas
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
-            var tema = db.Tema.Include(t => t.Profesor_Materia);
-            return View(tema.ToList());
+            if (id != null)
+                profesor_materia = db.Profesor_Materia.Find(id);
+            ViewBag.profesor = profesor_materia;
+
+            var temas = db.Tema.Where(x => x.tema_pro_mat_id == profesor_materia.pro_mat_id);
+            return View(temas.ToList());
         }
 
         // GET: Temas/Details/5
@@ -39,7 +44,7 @@ namespace Organizate.Controllers
         // GET: Temas/Create
         public ActionResult Create()
         {
-            ViewBag.tema_pro_mat_id = new SelectList(db.Profesor_Materia, "pro_mat_id", "pro_mat_id");
+            ViewBag.profesor = profesor_materia;
             return View();
         }
 
@@ -48,10 +53,11 @@ namespace Organizate.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "tema_id,tema_nombre,tema_pro_mat_id")] Tema tema)
+        public ActionResult Create(Tema tema)
         {
             if (ModelState.IsValid)
             {
+                tema.tema_pro_mat_id = profesor_materia.pro_mat_id;
                 db.Tema.Add(tema);
                 db.SaveChanges();
                 return RedirectToAction("Index");

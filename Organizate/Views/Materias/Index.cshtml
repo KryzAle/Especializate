@@ -8,13 +8,20 @@
 <div id="page-wrapper">
 	<div class="row">
 		<div class="col-lg-12">
-			<h1 class="page-header">Materias</h1>
+			<h1 class="page-header text-center">Materias</h1>
 		</div>
 		<!-- /.col-lg-12 -->
 	</div>
-	<p>
-		@Html.ActionLink("Create New", "Create")
-	</p>
+	
+	<div class="row">
+		<div class="col col-md-3">
+			<a href="@Url.Action("Create","Materias")" class="btn btn-success">Agregar Materia</a>
+		</div>
+		<div class="col col-md-3">
+			<a href="@Url.Action("Index","Profesor_Materia")" class="btn btn-success">Asignar Profesores</a>
+		</div>
+	</div>
+	<br />
 	<table class="table">
 		<tr>
 			<th>
@@ -30,12 +37,11 @@
 					@Html.DisplayFor(modelItem => item.mat_nombre)
 				</td>
 				<td>
-					@Html.ActionLink("Edit", "Edit", new { id = item.mat_id }) |
-					@Html.ActionLink("Details", "Details", new { id = item.mat_id }) |
-					@Html.ActionLink("Delete", "Delete", new { id = item.mat_id })
-				</td>
-			</tr>
+					<a href="@Url.Action("Edit","Materias", new { id = item.mat_id })"><i class="fa fa-2x fa-edit"></i></a>
+					<a href="@Url.Action("Delete","Materias", new { id = item.mat_id })"><i class="fa fa-2x fa-trash"></i></a>
+					
+</tr>
 		}
 
 	</table>
-	</div>
+</div>

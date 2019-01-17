@@ -5,11 +5,18 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 <div id="page-wrapper">
-	<h2>Index</h2>
-
-	<p>
-		@Html.ActionLink("Create New", "Create")
-	</p>
+	<div class="row">
+		<div class="col-lg-12">
+			<h1 class="page-header text-center">Profesores Materias</h1>
+		</div>
+		<!-- /.col-lg-12 -->
+	</div>
+	<div class="row">
+		<div class="col col-md-3">
+			<a href="@Url.Action("Create","Profesor_Materia")" class="btn btn-success">Crear Nuevo</a>
+		</div>
+	</div>
+	<br />
 	<table class="table">
 		<tr>
 			<th>
@@ -31,12 +38,15 @@
 					@Html.DisplayFor(modelItem => item.Profesor.pro_nombre)
 				</td>
 				<td>
-					@Html.ActionLink("Edit", "Edit", new { id = item.pro_mat_id }) |
-					@Html.ActionLink("Details", "Details", new { id = item.pro_mat_id }) |
-					@Html.ActionLink("Delete", "Delete", new { id = item.pro_mat_id })
+					<a href="@Url.Action("Edit","Materias", new { id = item.pro_mat_id })"><i class="fa fa-2x fa-edit"></i></a>
+					<a href="@Url.Action("Delete","Materias", new { id = item.pro_mat_id })"><i class="fa fa-2x fa-trash"></i></a>
+					<a href="@Url.Action("Index","Temas", new {id = item.pro_mat_id})" class="btn btn-success">Temas</a>
 				</td>
 			</tr>
 		}
 
 	</table>
+	<div>
+		<h1><a href="@Url.Action("Index","Materias")"><i class="fa fa-arrow-circle-left fa-fw"></i></a></h1>
 	</div>
+</div>

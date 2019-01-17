@@ -120,7 +120,7 @@
 						@if (User.IsInRole("Administrador"))
 						{
 							<li>
-								<a href="@Url.Action("Index", "Profesor_Materia")"><i class="fa fa-book fa-fw"></i> Materias</a>
+								<a href="@Url.Action("Index", "Materias")"><i class="fa fa-book fa-fw"></i> Materias</a>
 							</li>
 						}
 						@if (!User.IsInRole("Administrador") && !User.IsInRole("Secretaria"))

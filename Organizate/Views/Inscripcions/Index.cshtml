@@ -19,7 +19,7 @@
 	</div>
 	<br />
 	<div class="row">
-		<table class="table">
+		<table class="table col-md-offset-1">
 			<tr>
 				<th>
 					@Html.DisplayNameFor(model => model.ins_fecha)
@@ -33,7 +33,6 @@
 				<th>
 					@Html.DisplayNameFor(model => model.Estudiante.est_nombre)
 				</th>
-				<th></th>
 			</tr>
 
 			@foreach (var item in Model)
@@ -51,16 +50,11 @@
 					<td>
 						@Html.DisplayFor(modelItem => item.Estudiante.est_nombre)
 					</td>
-					<td>
-						@Html.ActionLink("Edit", "Edit", new { id = item.ins_id }) |
-						@Html.ActionLink("Details", "Details", new { id = item.ins_id }) |
-						@Html.ActionLink("Delete", "Delete", new { id = item.ins_id })
-					</td>
+					
 				</tr>
 			}
 
 		</table>
-
 	</div>
 	
 	</div>

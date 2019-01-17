@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Organizate.Horario_Profesor>
+
+@{
+	ViewBag.Title = "Horario";
+	var prof = ViewBag.profesor as Organizate.Profesor;
+	Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div id="page-wrapper">
+	<div class="row">
+		<div class="col-lg-12">
+			<h1 class="page-header text-center">Horario</h1>
+		</div>
+		<h3>
+			<div class="row ">
+				<hr />
+				<div class="col-md-1"></div>
+				<div class="col-md-4">
+					@prof.pro_nombre @prof.pro_apellido
+
+					<div class="col-md-5">
+						<b>Profesor</b>
+					</div>
+				</div>
+			</div>
+		</h3>
+	</div>
+	<br />
+	
+	<div class="row">
+		<div class="col col-md-3">
+			<a href="@Url.Action("Create_Horario_Profesor","Horario_Profesor")" class="btn btn-success">Agregar Horario</a>
+		</div>
+	</div>
+	<br />
+	<table class="table">
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.hor_pro_dia)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.hor_pro_hora_inicio)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.hor_pro_hora_fin)
+			</th>
+			<th></th>
+		</tr>
+
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.hor_pro_dia)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.hor_pro_hora_inicio)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.hor_pro_hora_fin)
+				</td>
+				<td>
+					<a href="@Url.Action("Edit","Horario_Profesor", new { id = item.hor_pro_id })"><i class="fa fa-2x fa-edit"></i></a>
+					<a href="@Url.Action("Delete","Horario_Profesor", new { id = item.hor_pro_id })"><i class="fa fa-2x fa-trash"></i></a>
+				</td>
+			</tr>
+		}
+
+	</table>
+</div>

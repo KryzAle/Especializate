@@ -1,27 +1,28 @@
 ﻿@model IEnumerable<Organizate.Tema>
 
 @{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+	ViewBag.Title = "Index";
+	var prof = ViewBag.profesor as Organizate.Profesor_Materia;
+	Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <div id="page-wrapper">
 	<div class="row">
 		<div class="col-lg-12">
-			<h1 class="page-header">Temas</h1>
+			<h1 class="page-header text-center">Temas de @prof.Materia.mat_nombre del Profesor @prof.Profesor.pro_nombre @prof.Profesor.pro_apellido </h1>
 		</div>
 		<!-- /.col-lg-12 -->
 	</div>
-	<p>
-		@Html.ActionLink("Create New", "Create")
-	</p>
+	<div class="row">
+		<div class="col col-md-3">
+			<a href="@Url.Action("Create","Temas")" class="btn btn-success">Agregar Temas</a>
+		</div>
+	</div>
+	<br />
 	<table class="table">
 		<tr>
 			<th>
 				@Html.DisplayNameFor(model => model.tema_nombre)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.Profesor_Materia.pro_mat_id)
 			</th>
 			<th></th>
 		</tr>
@@ -33,15 +34,15 @@
 					@Html.DisplayFor(modelItem => item.tema_nombre)
 				</td>
 				<td>
-					@Html.DisplayFor(modelItem => item.Profesor_Materia.pro_mat_id)
-				</td>
-				<td>
-					@Html.ActionLink("Edit", "Edit", new { id = item.tema_id }) |
-					@Html.ActionLink("Details", "Details", new { id = item.tema_id }) |
-					@Html.ActionLink("Delete", "Delete", new { id = item.tema_id })
+					<a href="@Url.Action("Edit","Temas", new { id = item.tema_id })"><i class="fa fa-2x fa-edit"></i></a>
+					<a href="@Url.Action("Delete","Temas", new { id = item.tema_id })"><i class="fa fa-2x fa-trash"></i></a>
+
 				</td>
 			</tr>
 		}
 
 	</table>
+	<div>
+		<h1 ><a href="@Url.Action("Index","Profesor_Materia")"><i class="fa fa-arrow-circle-left fa-fw"></i></a></h1>
 	</div>
+</div>

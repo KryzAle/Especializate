@@ -5,19 +5,21 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 <div id="page-wrapper">
-	<h2>Create</h2>
-
+	<div class="row">
+		<div class="col-lg-12">
+			<h1 class="page-header text-center">Asignar Profesor Materia</h1>
+		</div>
+		<!-- /.col-lg-12 -->
+	</div>
 	@using (Html.BeginForm())
 	{
 		@Html.AntiForgeryToken()
 
 		<div class="form-horizontal">
-			<h4>Profesor_Materia</h4>
-			<hr />
 			@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 			<div class="form-group">
 				@Html.LabelFor(model => model.pro_mat_pro_id, "Profesor", htmlAttributes: new { @class = "control-label col-md-2" })
-				<div class="col-md-10">
+				<div class="col-md-4">
 					@Html.DropDownList("pro_mat_pro_id", null, htmlAttributes: new { @class = "form-control" })
 					@Html.ValidationMessageFor(model => model.pro_mat_pro_id, "", new { @class = "text-danger" })
 				</div>
@@ -25,20 +27,23 @@
 
 			<div class="form-group">
 				@Html.LabelFor(model => model.pro_mat_mat_id, "Materia", htmlAttributes: new { @class = "control-label col-md-2" })
-				<div class="col-md-10">
+				<div class="col-md-4">
 					@Html.DropDownList("pro_mat_mat_id", null, htmlAttributes: new { @class = "form-control" })
 					@Html.ValidationMessageFor(model => model.pro_mat_mat_id, "", new { @class = "text-danger" })
 				</div>
 			</div>
 
 			<div class="form-group">
-				<div class="col-md-offset-2 col-md-10">
-					<input type="submit" value="Create" class="btn btn-default" />
+				<div>
+					<h1 class="col-md-offset-1"><a href="@Url.Action("Index","Profesor_Materia")"><i class="fa fa-arrow-circle-left fa-fw"></i></a></h1>
+				</div>
+				<div class="col-md-offset-3 col-md-1">
+					<input type="submit" value="Guardar" class="btn btn-success" />
 				</div>
 			</div>
 		</div>
 		<div>
-			<table class="table" id="tablita">
+			<table class="table col-md-offset-1" id="tablita">
 
 				<tr>
 					<th>Tema</th>
@@ -48,12 +53,9 @@
 		</div>
 	}
 
-	<div>
-		@Html.ActionLink("Back to List", "Index")
-	</div>
-	<div class="btn-der">
+	<div class="col-md-offset-1">
 
-		<button id="adicional" name="adicional" type="button" class="btn btn-warning" onclick="appendText()">Mas+ </button>
+		<button id="adicional" name="adicional" type="button" class="btn btn-warning" onclick="appendText()"><i class="fa fa-plus"></i> </button>
 	</div>
 	<script>
 		var posicion = 0;

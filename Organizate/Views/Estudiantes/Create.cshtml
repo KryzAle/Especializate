@@ -19,12 +19,11 @@
 		if (User.IsInRole("Administrador"))
 		{
 			<div class="form-horizontal">
-				<h4>Estudiante</h4>
 				<hr />
 				@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 				<div class="form-group">
 					@Html.LabelFor(model => model.est_nombre, htmlAttributes: new { @class = "control-label col-md-2" })
-					<div class="col-md-10">
+					<div class="col-md-6">
 						@Html.EditorFor(model => model.est_nombre, new { htmlAttributes = new { @class = "form-control" } })
 						@Html.ValidationMessageFor(model => model.est_nombre, "", new { @class = "text-danger" })
 					</div>
@@ -32,7 +31,7 @@
 
 				<div class="form-group">
 					@Html.LabelFor(model => model.est_apellido, htmlAttributes: new { @class = "control-label col-md-2" })
-					<div class="col-md-10">
+					<div class="col-md-6">
 						@Html.EditorFor(model => model.est_apellido, new { htmlAttributes = new { @class = "form-control" } })
 						@Html.ValidationMessageFor(model => model.est_apellido, "", new { @class = "text-danger" })
 					</div>
@@ -40,7 +39,7 @@
 
 				<div class="form-group">
 					@Html.LabelFor(model => model.est_telefono, htmlAttributes: new { @class = "control-label col-md-2" })
-					<div class="col-md-10">
+					<div class="col-md-6">
 						@Html.EditorFor(model => model.est_telefono, new { htmlAttributes = new { @class = "form-control" } })
 						@Html.ValidationMessageFor(model => model.est_telefono, "", new { @class = "text-danger" })
 					</div>
@@ -48,7 +47,7 @@
 
 				<div class="form-group">
 					@Html.LabelFor(model => model.est_direccion, htmlAttributes: new { @class = "control-label col-md-2" })
-					<div class="col-md-10">
+					<div class="col-md-6">
 						@Html.EditorFor(model => model.est_direccion, new { htmlAttributes = new { @class = "form-control" } })
 						@Html.ValidationMessageFor(model => model.est_direccion, "", new { @class = "text-danger" })
 					</div>
@@ -56,7 +55,7 @@
 
 				<div class="form-group">
 					@Html.LabelFor(model => model.est_correo, htmlAttributes: new { @class = "control-label col-md-2" })
-					<div class="col-md-10">
+					<div class="col-md-6">
 						@Html.EditorFor(model => model.est_correo, new { htmlAttributes = new { @class = "form-control" } })
 						@Html.ValidationMessageFor(model => model.est_correo, "", new { @class = "text-danger" })
 					</div>
@@ -64,7 +63,7 @@
 
 				<div class="form-group">
 					@Html.LabelFor(model => model.est_cedula, htmlAttributes: new { @class = "control-label col-md-2" })
-					<div class="col-md-10">
+					<div class="col-md-6">
 						@Html.EditorFor(model => model.est_cedula, new { htmlAttributes = new { @class = "form-control" } })
 						@Html.ValidationMessageFor(model => model.est_cedula, "", new { @class = "text-danger" })
 					</div>
@@ -72,15 +71,18 @@
 
 				<div class="form-group">
 					@Html.LabelFor(model => model.est_cole_univ, htmlAttributes: new { @class = "control-label col-md-2" })
-					<div class="col-md-10">
+					<div class="col-md-6">
 						@Html.EditorFor(model => model.est_cole_univ, new { htmlAttributes = new { @class = "form-control" } })
 						@Html.ValidationMessageFor(model => model.est_cole_univ, "", new { @class = "text-danger" })
 					</div>
 				</div>
 
 				<div class="form-group">
-					<div class="col-md-offset-2 col-md-10">
-						<input type="submit" value="Create" class="btn btn-default" />
+					<div>
+						<h1 class="col-md-offset-1"><a href="@Url.Action("Index","Estudiantes")"><i class="fa fa-arrow-circle-left fa-fw"></i></a></h1>
+					</div>
+					<div class="col-md-offset-3 col-md-1">
+						<input type="submit" value="Guardar" class="btn btn-success" />
 					</div>
 				</div>
 			</div>
@@ -91,7 +93,5 @@
 		}
 	}
 
-	<div>
-		@Html.ActionLink("Back to List", "Index")
-	</div>
+	
 </div>

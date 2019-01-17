@@ -10,11 +10,42 @@ using Organizate;
 
 namespace Organizate.Controllers
 {
+    
     public class Horario_ProfesorController : Controller
     {
+        public static Profesor profesorObj;
         private DB_A44489_asistenciaEntities db = new DB_A44489_asistenciaEntities();
 
         // GET: Horario_Profesor
+        public ActionResult Horario(string id)
+        {
+            if(id !=null)
+            profesorObj = db.Profesor.Find(id);
+            ViewBag.profesor = profesorObj;
+            
+            var horario_Profesor = db.Horario_Profesor.Where(x => x.hor_pro_pro_id == profesorObj.pro_id);
+            return View(horario_Profesor.ToList());
+        }
+        public ActionResult Create_Horario_Profesor(string id)
+        {
+            ViewBag.profesor = profesorObj;
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create_Horario_Profesor(Horario_Profesor horario_Profesor)
+        {
+            if (ModelState.IsValid)
+            {
+                horario_Profesor.hor_pro_pro_id = profesorObj.pro_id;
+                db.Horario_Profesor.Add(horario_Profesor);
+                db.SaveChanges();
+                return RedirectToAction("Horario");
+            }
+
+            ViewBag.hor_pro_pro_id = new SelectList(db.Profesor, "pro_id", "pro_nombre", horario_Profesor.hor_pro_pro_id);
+            return View(horario_Profesor);
+        }
         public ActionResult Index()
         {
             var horario_Profesor = db.Horario_Profesor.Include(h => h.Profesor);
@@ -88,7 +119,7 @@ namespace Organizate.Controllers
             {
                 db.Entry(horario_Profesor).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Horario");
             }
             ViewBag.hor_pro_pro_id = new SelectList(db.Profesor, "pro_id", "pro_nombre", horario_Profesor.hor_pro_pro_id);
             return View(horario_Profesor);
