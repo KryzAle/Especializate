@@ -32,6 +32,7 @@
 		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 	<![endif]-->
+	@Styles.Render("~/Content/themes/base/jquery-ui.css")
 </head>
 
 <body>
@@ -132,15 +133,17 @@
 		Plugin JavaScript -->
 	<script src="~/Content/vendor/metisMenu/metisMenu.min.js"></script>
 
-	<!-- Morris Charts JavaScript -->
+	<!-- Morris Charts JavaScript
 	<script src="~/Content/vendor/raphael/raphael.min.js"></script>
 	<script src="~/Content/vendor/morrisjs/morris.min.js"></script>
-	<script src="~/Content/data/morris-data.js"></script>
-
+	<script src="~/Content/data/morris-data.js"></script>-->
 	<!-- Custom Theme JavaScript -->
 	<script src="~/Content/dist/js/sb-admin-2.js"></script>
-
+	@Scripts.Render("~/Scripts/DatePickerReady.js")
+	@Scripts.Render("~/Scripts/jquery-ui-1.12.1.js")
 	@RenderSection("scripts", required: false)
+
+	<script src=""></script>
 </body>
 
 </html>

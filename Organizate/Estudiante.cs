@@ -40,7 +40,7 @@ namespace Organizate
         [DisplayName("Direccion")]
         public string est_direccion { get; set; }
         [Required(ErrorMessage = "{0} es un campo obligatorio")]
-        [RegularExpression("\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}\b", ErrorMessage = "No es una direccion de Mail Válida")]
+        //[RegularExpression("\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}\b", ErrorMessage = "No es una direccion de Mail Válida")]
         [DisplayName("Correo")]
         public string est_correo { get; set; }
         [MaxLength(10, ErrorMessage = "La propiedad {0} no puede tener más de {1} elementos")]
