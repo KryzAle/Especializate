@@ -1,0 +1,74 @@
+﻿@model Organizate.Asistencia
+
+@{
+    ViewBag.Title = "CreateCita";
+    Tema tema = new Tema();
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header text-center">Citas</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.Label("Materia", "pro_mat_mat_id", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("pro_mat_mat_id", ViewBag.pro_mat_mat_id as SelectList, "Seleccionar", htmlAttributes: new { @class = "form-control" })
+                    
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.asi_tema_id, "tema_id", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("tema_id", new SelectList(string.Empty,"tema_id","tema_nombre"), "Seleccionar", htmlAttributes: new { @class = "form-control" })
+                   
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div>
+                    <h1 class="col-md-offset-1"><a href="@Url.Action("Index","Inscripcions")"><i class="fa fa-arrow-circle-left fa-fw"></i></a></h1>
+                </div>
+                <div class="col-md-offset-3 col-md-1">
+                    <input type="submit" value="Buscar" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#pro_mat_mat_id").change(function () {        
+                 $.ajax({
+                    Type: 'POST',
+                    url: '@Url.Action("TraerTemas")',
+                    dataType: 'json',
+                    data: { id: $("#pro_mat_mat_id").val() },
+                     success: function (listaTemasMat) {
+                        
+                        $('#tema_id').empty();
+                         $.each(listaTemasMat, function (index, row) {
+                            debugger
+                            $("#tema_id").append('<option value="' + row.Value + '">' + row.Text + '</option>');
+                        });
+                    }
+                })
+               
+            });
+
+        });
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+
+}

@@ -266,8 +266,6 @@ D:\Developer\Especializate\Organizate\obj\Debug\Organizate.csproj.CoreCompileInp
 D:\Developer\Especializate\Organizate\obj\Debug\Organizate.csproj.CopyComplete
 D:\Developer\Especializate\Organizate\obj\Debug\Organizate.dll
 D:\Developer\Especializate\Organizate\obj\Debug\Organizate.pdb
-E:\Develop\Especializate\Organizate\obj\Debug\Organizate.dll
-E:\Develop\Especializate\Organizate\obj\Debug\Organizate.pdb
 E:\Develop\Especializate\Organizate\bin\ApplicationInsights.config
 E:\Develop\Especializate\Organizate\bin\Organizate.dll.config
 E:\Develop\Especializate\Organizate\bin\Organizate.dll
@@ -397,6 +395,8 @@ E:\Develop\Especializate\Organizate\bin\es\EntityFramework.SqlServer.resources.d
 E:\Develop\Especializate\Organizate\bin\es\Microsoft.AspNet.Identity.Core.resources.dll
 E:\Develop\Especializate\Organizate\bin\es\Microsoft.AspNet.Identity.Owin.resources.dll
 E:\Develop\Especializate\Organizate\bin\es\Microsoft.AspNet.Identity.EntityFramework.resources.dll
-E:\Develop\Especializate\Organizate\obj\Debug\Organizate.csprojAssemblyReference.cache
 E:\Develop\Especializate\Organizate\obj\Debug\Organizate.csproj.CoreCompileInputs.cache
 E:\Develop\Especializate\Organizate\obj\Debug\Organizate.csproj.CopyComplete
+E:\Develop\Especializate\Organizate\obj\Debug\Organizate.dll
+E:\Develop\Especializate\Organizate\obj\Debug\Organizate.pdb
+E:\Develop\Especializate\Organizate\obj\Debug\Organizate.csprojAssemblyReference.cache

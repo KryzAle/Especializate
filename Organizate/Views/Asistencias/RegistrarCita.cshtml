@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Organizate.Horario_Profesor>
+
+@{
+    ViewBag.Title = "Registrar Cita";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header text-center">Horario Disponible</h1>
+        </div>
+        </div>
+
+    <br />
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.hor_pro_dia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.hor_pro_hora_inicio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.hor_pro_hora_fin)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.hor_pro_dia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.hor_pro_hora_inicio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.hor_pro_hora_fin)
+                </td>
+                <td>
+                    <a href="@Url.Action("ConfirmarCita","Asistencias", new {id = item.hor_pro_id})" class="btn btn-success">Agendar Cita</a>
+
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
