@@ -12,6 +12,7 @@ namespace Organizate
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
 
     public partial class Inscripcion
     {
@@ -21,6 +22,8 @@ namespace Organizate
         public System.DateTime ins_fecha { get; set; }
         [DisplayName("Valor")]
         public double ins_valor { get; set; }
+        [Range(typeof(int), "1", "100",
+        ErrorMessage = "El campo {0} debe estar en el rango de {1} a {2}")]
         [DisplayName("Horas Totales")]
         public int ins_total_horas { get; set; }
         [DisplayName("Saldo de Horas")]

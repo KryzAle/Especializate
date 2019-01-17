@@ -13,7 +13,7 @@ namespace Organizate.Controllers
     
     public class Horario_ProfesorController : Controller
     {
-        public static Profesor profesorObj;
+        public static Profesor profesorObj = new Profesor();
         private DB_A44489_asistenciaEntities db = new DB_A44489_asistenciaEntities();
 
         // GET: Horario_Profesor

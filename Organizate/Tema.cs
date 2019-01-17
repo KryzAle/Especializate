@@ -12,6 +12,7 @@ namespace Organizate
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
 
     public partial class Tema
     {
@@ -23,6 +24,7 @@ namespace Organizate
 
         [DisplayName("Tema")]
         public int tema_id { get; set; }
+        [Required(ErrorMessage = "{0} es un campo obligatorio")]
         [DisplayName("Nombre")]
         public string tema_nombre { get; set; }
         [DisplayName("Materia")]

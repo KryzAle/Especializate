@@ -12,15 +12,19 @@ namespace Organizate
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
 
     public partial class Horario_Profesor
     {
         [DisplayName("Horario Profesor")]
         public int hor_pro_id { get; set; }
         [DisplayName("Dia")]
+        [Required(ErrorMessage = "{0} es un campo obligatorio")]
         public string hor_pro_dia { get; set; }
+        [Required(ErrorMessage = "{0} es un campo obligatorio")]
         [DisplayName("Hora inicio")]
         public System.TimeSpan hor_pro_hora_inicio { get; set; }
+        [Required(ErrorMessage = "{0} es un campo obligatorio")]
         [DisplayName("Hora fin")]
         public System.TimeSpan hor_pro_hora_fin { get; set; }
         public string hor_pro_pro_id { get; set; }

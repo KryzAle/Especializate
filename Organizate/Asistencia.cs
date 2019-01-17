@@ -12,23 +12,34 @@ namespace Organizate
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
 
     public partial class Asistencia
     {
         [DisplayName("Asistencia")]
         public int asi_id { get; set; }
         [DisplayName("Fecha de Asistencia")]
+        [Required(ErrorMessage = "{0} es un campo obligatorio")]
         public System.DateTime asi_fecha { get; set; }
         [DisplayName("Hora de Inicio")]
+        [Required(ErrorMessage = "{0} es un campo obligatorio")]
+        [Range(typeof(System.TimeSpan), "7:00", "19:00",
+        ErrorMessage = "La hora {0} debe estar en el rango de {1} a {2}" )]
         public System.TimeSpan asi_hora_inicio { get; set; }
         [DisplayName("Hora de Fin")]
+        [Range(typeof(System.TimeSpan), "7:00", "19:00",
+        ErrorMessage = "La hora {0} debe estar en el rango de {1} a {2}")]
         public Nullable<System.TimeSpan> asi_hora_fin { get; set; }
+        [Range(typeof(int), "1", "4",
+        ErrorMessage = "El campo {0} debe estar en el rango de {1} a {2}")]
         [DisplayName("Tiempo")]
         public int asi_tiempo { get; set; }
         [DisplayName("Contenido")]
         public string asi_contenido { get; set; }
+        [Required(ErrorMessage = "{0} es un campo obligatorio")]
         [DisplayName("Estudiante")]
         public int asi_est_id { get; set; }
+        [Required(ErrorMessage = "{0} es un campo obligatorio")]
         [DisplayName("Tema")]
         public int asi_tema_id { get; set; }
     

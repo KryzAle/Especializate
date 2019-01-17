@@ -12,7 +12,7 @@ namespace Organizate.Controllers
 {
     public class TemasController : Controller
     {
-        public static Profesor_Materia profesor_materia;
+        public static Profesor_Materia profesor_materia = new Profesor_Materia();
         private DB_A44489_asistenciaEntities db = new DB_A44489_asistenciaEntities();
 
         // GET: Temas
@@ -63,7 +63,7 @@ namespace Organizate.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.tema_pro_mat_id = new SelectList(db.Profesor_Materia, "pro_mat_id", "pro_mat_id", tema.tema_pro_mat_id);
+            ViewBag.profesor = profesor_materia;
             return View(tema);
         }
 
