@@ -15,6 +15,16 @@ namespace Organizate.Controllers
         private DB_A44489_asistenciaEntities db = new DB_A44489_asistenciaEntities();
 
         // GET: Asistencias
+        public ActionResult Cita()
+        {
+            if (Request.IsAuthenticated)
+            {
+                ViewBag.ins_est_id = new SelectList(db.Estudiante, "est_id", "est_nombre");
+                return View();
+            }
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Inscripcions/Cita" });
+
+        }
         public ActionResult Index()
         {
             var asistencia = db.Asistencia.Include(a => a.Estudiante).Include(a => a.Tema);

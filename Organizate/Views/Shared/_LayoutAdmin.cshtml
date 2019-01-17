@@ -99,18 +99,43 @@
 							</div>
 							<!-- /input-group -->
 						</li>
-						<li>
-							<a href="@Url.Action("Index","Inscripcions")"><i class="fa fa-edit fa-fw"></i> Inscripciones</a>
-						</li>
-						<li>
-							<a href="@Url.Action("Index","Profesors")"><i class="fa fa-pencil fa-fw"></i> Profesores</a>
-						</li>
-						<li>
-							<a href="@Url.Action("Index","Profesor_Materia")"><i class="fa fa-book fa-fw"></i> Materias</a>
-						</li>
-						<li>
-							<a href="@Url.Action("Index","Asistencias")"><i class="fa fa-registered fa-fw"></i> Asistencia</a>
-						</li>
+						@if (User.IsInRole("Administrador") || User.IsInRole("Secretaria"))
+						{
+							<li>
+								<a href="@Url.Action("Index","Inscripcions")"><i class="fa fa-edit fa-fw"></i> Inscripciones</a>
+							</li>
+						}
+						@if (User.IsInRole("Administrador"))
+						{
+							<li>
+								<a href="@Url.Action("Index","Estudiantes")"><i class="fa fa-edit fa-fw"></i> Estudiantes</a>
+							</li>
+						}
+						@if (User.IsInRole("Administrador"))
+						{
+							<li>
+								<a href="@Url.Action("Index", "Profesors")"><i class="fa fa-pencil fa-fw"></i> Profesores</a>
+							</li>
+						}
+						@if (User.IsInRole("Administrador"))
+						{
+							<li>
+								<a href="@Url.Action("Index", "Profesor_Materia")"><i class="fa fa-book fa-fw"></i> Materias</a>
+							</li>
+						}
+						@if (!User.IsInRole("Administrador") && !User.IsInRole("Secretaria"))
+						{
+							<li>
+								<a href="@Url.Action("Index", "Asistencias")"><i class="fa fa-registered fa-fw"></i> Asistencia</a>
+							</li>
+						}
+						@if (User.IsInRole("Secretaria"))
+						{
+							<li>
+								<a href="@Url.Action("Cita", "Asistencias")"><i class="fa fa-registered fa-fw"></i> Citas</a>
+							</li>
+						}
+
 						<li>
 							<a href="@Url.Action("IndexAdmin","Home")"><i class="fa fa-paper-plane fa-fw"></i> Reportes</a>
 						</li>

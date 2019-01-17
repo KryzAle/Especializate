@@ -15,32 +15,51 @@ namespace Organizate.Controllers
         private DB_A44489_asistenciaEntities db = new DB_A44489_asistenciaEntities();
 
         // GET: Inscripcions
+        
         public ActionResult Index()
         {
-            var inscripcion = db.Inscripcion.Include(i => i.Estudiante);
-            return View(inscripcion.ToList());
+            if (Request.IsAuthenticated)
+            {
+                var inscripcion = db.Inscripcion.Include(i => i.Estudiante);
+                return View(inscripcion.ToList());
+            }
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Inscripcions/Index" });
+            
         }
 
         // GET: Inscripcions/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if (Request.IsAuthenticated)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Inscripcion inscripcion = db.Inscripcion.Find(id);
+                if (inscripcion == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(inscripcion);
             }
-            Inscripcion inscripcion = db.Inscripcion.Find(id);
-            if (inscripcion == null)
-            {
-                return HttpNotFound();
-            }
-            return View(inscripcion);
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Inscripcions/Index" });
+
+
+           
         }
 
         // GET: Inscripcions/Create
         public ActionResult Create()
         {
-            ViewBag.ins_est_id = new SelectList(db.Estudiante, "est_id", "est_nombre");
-            return View();
+            if (Request.IsAuthenticated)
+            {
+                ViewBag.ins_est_id = new SelectList(db.Estudiante, "est_id", "est_nombre");
+                return View();
+            }
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Inscripcions/Create" });
+
+            
         }
 
         // POST: Inscripcions/Create
@@ -52,6 +71,7 @@ namespace Organizate.Controllers
         {
             if (ModelState.IsValid)
             {
+                inscripcion.ins_valor = 10 * inscripcion.ins_total_horas;
                 db.Inscripcion.Add(inscripcion);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -64,17 +84,22 @@ namespace Organizate.Controllers
         // GET: Inscripcions/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (Request.IsAuthenticated)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Inscripcion inscripcion = db.Inscripcion.Find(id);
+                if (inscripcion == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.ins_est_id = new SelectList(db.Estudiante, "est_id", "est_nombre", inscripcion.ins_est_id);
+                return View(inscripcion);
             }
-            Inscripcion inscripcion = db.Inscripcion.Find(id);
-            if (inscripcion == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.ins_est_id = new SelectList(db.Estudiante, "est_id", "est_nombre", inscripcion.ins_est_id);
-            return View(inscripcion);
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Inscripcions/Edit" });
+            
         }
 
         // POST: Inscripcions/Edit/5
@@ -97,16 +122,22 @@ namespace Organizate.Controllers
         // GET: Inscripcions/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (Request.IsAuthenticated)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Inscripcion inscripcion = db.Inscripcion.Find(id);
+                if (inscripcion == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(inscripcion);
             }
-            Inscripcion inscripcion = db.Inscripcion.Find(id);
-            if (inscripcion == null)
-            {
-                return HttpNotFound();
-            }
-            return View(inscripcion);
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Inscripcions/Delete" });
+
+            
         }
 
         // POST: Inscripcions/Delete/5
