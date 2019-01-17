@@ -12,49 +12,55 @@
 		</div>
 		<!-- /.col-lg-12 -->
 	</div>
-	<div class="col col-md-3">
-		<a href="@Url.Action("Create","Inscripcions")" class="btn btn-lg btn-success btn-block">Agregar Inscripcion</a>
+	<div class="row">
+		<div class="col col-md-3">
+			<a href="@Url.Action("Create","Inscripcions")" class="btn btn-success">Agregar Inscripcion</a>
+		</div>
+	</div>
+	<br />
+	<div class="row">
+		<table class="table">
+			<tr>
+				<th>
+					@Html.DisplayNameFor(model => model.ins_fecha)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.ins_valor)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.ins_total_horas)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Estudiante.est_nombre)
+				</th>
+				<th></th>
+			</tr>
+
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td>
+						@Html.DisplayFor(modelItem => item.ins_fecha)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.ins_valor)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.ins_total_horas)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Estudiante.est_nombre)
+					</td>
+					<td>
+						@Html.ActionLink("Edit", "Edit", new { id = item.ins_id }) |
+						@Html.ActionLink("Details", "Details", new { id = item.ins_id }) |
+						@Html.ActionLink("Delete", "Delete", new { id = item.ins_id })
+					</td>
+				</tr>
+			}
+
+		</table>
+
 	</div>
 	
-	<table class="table">
-		<tr>
-			<th>
-				@Html.DisplayNameFor(model => model.ins_fecha)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.ins_valor)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.ins_total_horas)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.Estudiante.est_nombre)
-			</th>
-			<th></th>
-		</tr>
-
-		@foreach (var item in Model)
-		{
-			<tr>
-				<td>
-					@Html.DisplayFor(modelItem => item.ins_fecha)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.ins_valor)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.ins_total_horas)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.Estudiante.est_nombre)
-				</td>
-				<td>
-					@Html.ActionLink("Edit", "Edit", new { id = item.ins_id }) |
-					@Html.ActionLink("Details", "Details", new { id = item.ins_id }) |
-					@Html.ActionLink("Delete", "Delete", new { id = item.ins_id })
-				</td>
-			</tr>
-		}
-
-	</table>
 	</div>

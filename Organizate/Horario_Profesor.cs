@@ -11,12 +11,17 @@ namespace Organizate
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class Horario_Profesor
     {
+        [DisplayName("Horario Profesor")]
         public int hor_pro_id { get; set; }
+        [DisplayName("Dia")]
         public string hor_pro_dia { get; set; }
+        [DisplayName("Hora inicio")]
         public System.TimeSpan hor_pro_hora_inicio { get; set; }
+        [DisplayName("Hora fin")]
         public System.TimeSpan hor_pro_hora_fin { get; set; }
         public string hor_pro_pro_id { get; set; }
     

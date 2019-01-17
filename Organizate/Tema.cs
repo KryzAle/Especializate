@@ -11,7 +11,8 @@ namespace Organizate
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class Tema
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,9 +20,12 @@ namespace Organizate
         {
             this.Asistencia = new HashSet<Asistencia>();
         }
-    
+
+        [DisplayName("Tema")]
         public int tema_id { get; set; }
+        [DisplayName("Nombre")]
         public string tema_nombre { get; set; }
+        [DisplayName("Materia")]
         public int tema_pro_mat_id { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

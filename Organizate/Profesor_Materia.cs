@@ -11,7 +11,8 @@ namespace Organizate
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class Profesor_Materia
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,12 +20,17 @@ namespace Organizate
         {
             this.Tema = new HashSet<Tema>();
         }
-    
+
+        [DisplayName("Materia")]
         public int pro_mat_id { get; set; }
+        [DisplayName("Profesor")]
         public string pro_mat_pro_id { get; set; }
+        [DisplayName("Materia")]
         public int pro_mat_mat_id { get; set; }
-    
+
+        [DisplayName("Materia")]
         public virtual Materia Materia { get; set; }
+        [DisplayName("Profesor")]
         public virtual Profesor Profesor { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tema> Tema { get; set; }
