@@ -11,25 +11,16 @@ namespace Organizate
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-
+    
     public partial class Asistencia
     {
-        [DisplayName("Asistencia")]
         public int asi_id { get; set; }
-        [DisplayName("Fecha de Asistencia")]
         public System.DateTime asi_fecha { get; set; }
-        [DisplayName("Hora de Inicio")]
         public System.TimeSpan asi_hora_inicio { get; set; }
-        [DisplayName("Hora de Fin")]
         public Nullable<System.TimeSpan> asi_hora_fin { get; set; }
-        [DisplayName("Tiempo")]
         public int asi_tiempo { get; set; }
-        [DisplayName("Contenido")]
         public string asi_contenido { get; set; }
-        [DisplayName("Estudiante")]
         public int asi_est_id { get; set; }
-        [DisplayName("Tema")]
         public int asi_tema_id { get; set; }
     
         public virtual Estudiante Estudiante { get; set; }
