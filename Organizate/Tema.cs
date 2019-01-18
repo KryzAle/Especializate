@@ -21,13 +21,11 @@ namespace Organizate
         {
             this.Asistencia = new HashSet<Asistencia>();
         }
-
-        [DisplayName("Tema")]
+    
         public int tema_id { get; set; }
         [Required(ErrorMessage = "{0} es un campo obligatorio")]
         [DisplayName("Nombre")]
         public string tema_nombre { get; set; }
-        [DisplayName("Materia")]
         public int tema_pro_mat_id { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

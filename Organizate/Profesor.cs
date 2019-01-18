@@ -11,9 +11,7 @@ namespace Organizate
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Profesor
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,33 +20,14 @@ namespace Organizate
             this.Horario_Profesor = new HashSet<Horario_Profesor>();
             this.Profesor_Materia = new HashSet<Profesor_Materia>();
         }
-
-        [DisplayName("Profesor")]
+    
         public string pro_id { get; set; }
-        [Required(ErrorMessage = "{0} es un campo obligatorio")]
-        [DisplayName("Nombre Profesor")]
         public string pro_nombre { get; set; }
-        [Required(ErrorMessage = "{0} es un campo obligatorio")]
-        [DisplayName("Apellido")]
         public string pro_apellido { get; set; }
-        [MaxLength(15, ErrorMessage = "La propiedad {0} no puede tener más de {1} elementos")]
-        [MinLength(7, ErrorMessage = "La propiedad {0} no puede tener al menos de {1} elementos")]
-        [Required(ErrorMessage = "{0} es un campo obligatorio")]
-        [DisplayName("Telefono")]
         public string pro_telefono { get; set; }
-        [Required(ErrorMessage = "{0} es un campo obligatorio")]
-        [DisplayName("Direccion")]
         public string pro_direccion { get; set; }
-        //[RegularExpression("\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}\b", ErrorMessage = "No es una direccion de Mail Válida")]
-        [DisplayName("E-mail")]
         public string pro_correo { get; set; }
-        [MaxLength(10, ErrorMessage = "La propiedad {0} no puede tener más de {1} elementos")]
-        [MinLength(10, ErrorMessage = "La propiedad {0} no puede tener menos de {1} elementos")]
-        [Required(ErrorMessage = "{0} es un campo obligatorio")]
-        [DisplayName("Cedula")]
         public string pro_cedula { get; set; }
-        [Required(ErrorMessage = "{0} es un campo obligatorio")]
-        [DisplayName("Profesion")]
         public string pro_profesion { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -129,7 +129,7 @@
 								<a href="@Url.Action("Index", "Asistencias")"><i class="fa fa-registered fa-fw"></i> Asistencia</a>
 							</li>
 						}
-						@if (User.IsInRole("Secretaria"))
+						@if (User.IsInRole("Secretaria") || User.IsInRole("Administrador"))
 						{
 							<li>
 								<a href="@Url.Action("Cita", "Asistencias")"><i class="fa fa-registered fa-fw"></i> Citas</a>

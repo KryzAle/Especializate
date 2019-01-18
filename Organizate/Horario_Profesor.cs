@@ -16,7 +16,6 @@ namespace Organizate
 
     public partial class Horario_Profesor
     {
-        [DisplayName("Horario Profesor")]
         public int hor_pro_id { get; set; }
         [DisplayName("Dia")]
         [Required(ErrorMessage = "{0} es un campo obligatorio")]
