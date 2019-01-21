@@ -23,7 +23,9 @@ namespace Organizate
         }
 
         public int pro_mat_id { get; set; }
+        [DisplayName("Profesor")]
         public string pro_mat_pro_id { get; set; }
+        [DisplayName("Materia")]
         public int pro_mat_mat_id { get; set; }
 
         public virtual Materia Materia { get; set; }

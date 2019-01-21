@@ -16,6 +16,7 @@ namespace Organizate
 
     public partial class Horario_Profesor
     {
+        [DisplayName("Horario Profesor")]
         public int hor_pro_id { get; set; }
         [DisplayName("Dia")]
         [Required(ErrorMessage = "{0} es un campo obligatorio")]
@@ -27,7 +28,7 @@ namespace Organizate
         [DisplayName("Hora fin")]
         public System.TimeSpan hor_pro_hora_fin { get; set; }
         public string hor_pro_pro_id { get; set; }
-    
+
         public virtual Profesor Profesor { get; set; }
     }
 }

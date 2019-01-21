@@ -21,12 +21,12 @@ namespace Organizate
         {
             this.Profesor_Materia = new HashSet<Profesor_Materia>();
         }
-    
+        [DisplayName("Materia")]
         public int mat_id { get; set; }
         [Required(ErrorMessage = "{0} es un campo obligatorio")]
         [DisplayName("Nombre")]
         public string mat_nombre { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Profesor_Materia> Profesor_Materia { get; set; }
     }

@@ -399,3 +399,4 @@ E:\Develop\Especializate\Organizate\obj\Debug\Organizate.csproj.CopyComplete
 E:\Develop\Especializate\Organizate\obj\Debug\Organizate.dll
 E:\Develop\Especializate\Organizate\obj\Debug\Organizate.pdb
 E:\Develop\Especializate\Organizate\obj\Debug\Organizate.csprojAssemblyReference.cache
+D:\Developer\Especializate\Organizate\obj\Debug\Organizate.csprojAssemblyReference.cache

@@ -16,16 +16,20 @@ namespace Organizate
 
     public partial class Inscripcion
     {
+        [DisplayName("Inscripcion")]
         public int ins_id { get; set; }
+        [DisplayName("Fecha")]
         public System.DateTime ins_fecha { get; set; }
+        [DisplayName("Valor")]
         public double ins_valor { get; set; }
         [Range(typeof(int), "1", "100",
         ErrorMessage = "El campo {0} debe estar en el rango de {1} a {2}")]
         [DisplayName("Horas Totales")]
         public int ins_total_horas { get; set; }
+        [DisplayName("Saldo de Horas")]
         public Nullable<int> ins_saldo { get; set; }
         public int ins_est_id { get; set; }
-    
+
         public virtual Estudiante Estudiante { get; set; }
     }
 }
