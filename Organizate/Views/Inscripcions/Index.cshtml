@@ -20,38 +20,45 @@
 	<br />
 	<div class="row">
 		<table class="table">
-			<tr>
-				<th>
-					@Html.DisplayNameFor(model => model.ins_fecha)
-				</th>
-				<th>
-					@Html.DisplayNameFor(model => model.ins_valor)
-				</th>
-				<th>
-					@Html.DisplayNameFor(model => model.ins_total_horas)
-				</th>
-				<th>
-					@Html.DisplayNameFor(model => model.Estudiante.est_nombre)
-				</th>
-			</tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ins_fecha)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ins_valor)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ins_total_horas)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ins_saldo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Estudiante.est_nombre)
+                </th>
+
+            </tr>
 
 			@foreach (var item in Model)
 			{
-				<tr>
-					<td>
-						@Html.DisplayFor(modelItem => item.ins_fecha)
-					</td>
-					<td>
-						@Html.DisplayFor(modelItem => item.ins_valor)
-					</td>
-					<td>
-						@Html.DisplayFor(modelItem => item.ins_total_horas)
-					</td>
-					<td>
-						@Html.DisplayFor(modelItem => item.Estudiante.est_nombre) @Html.DisplayFor(modelItem => item.Estudiante.est_apellido)
-					</td>
-					
-				</tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ins_fecha)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ins_valor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ins_total_horas)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ins_saldo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Estudiante.est_nombre) @Html.DisplayFor(modelItem => item.Estudiante.est_apellido)
+                </td>
+
+            </tr>
 			}
 
 		</table>

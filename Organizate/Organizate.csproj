@@ -660,6 +660,7 @@
     <Content Include="Views\Asistencias\RegistrarCita.cshtml" />
     <Content Include="Views\Asistencias\ConfirmarCita.cshtml" />
     <Content Include="Views\Asistencias\BuscarAsistencia.cshtml" />
+    <Content Include="Views\Asistencias\TomarLista.cshtml" />
     <Content Include="Views\Reportes\ReporteEstudiante.cshtml" />
     <Content Include="Views\Shared\_LayoutReport.cshtml" />
   </ItemGroup>

@@ -21,7 +21,7 @@ namespace Organizate.Controllers
         {
             if (Request.IsAuthenticated)
             {
-                var asistencia = db.Asistencia.Include(a => a.Estudiante).Include(a => a.Tema);
+                var asistencia = db.Asistencia.Where(x => x.asi_hora_fin==null);
                 return View(asistencia.ToList());
             }
             return RedirectToAction("Login", "Account", new { returnUrl = "~/Asistencias/Cita" });
@@ -172,7 +172,19 @@ namespace Organizate.Controllers
         {
             if (Request.IsAuthenticated)
             {
-                var asistencia = db.Asistencia.Where(x => x.asi_tiempo != 0).ToList();
+                string idUser = User.Identity.GetUserId();
+                List<Tema> temas = new List<Tema>();
+                List<Profesor_Materia> materiasprofesor = db.Profesor_Materia.Where(x => x.pro_mat_pro_id == idUser).ToList();
+                foreach (var item in materiasprofesor)
+                {
+                    temas.AddRange(db.Tema.Where(y => y.tema_pro_mat_id == item.pro_mat_id).ToList());
+                }
+                List<Asistencia> asistencia = new List<Asistencia>();
+                foreach (var item in temas)
+                {
+                    asistencia.AddRange(db.Asistencia.Where(x => x.asi_tiempo != 0 && x.asi_tema_id == item.tema_id).ToList());
+                }
+                
                 return View(asistencia.ToList());
             }
             return RedirectToAction("Login", "Account", new { returnUrl = "~/Asistencias/Index" });
@@ -216,12 +228,108 @@ namespace Organizate.Controllers
             }
             return RedirectToAction("Login", "Account", new { returnUrl = "~/Asistencias/Create" });
 
+
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult BuscarAsistencia(Asistencia asistencia)
         {
-            return RedirectToAction("TomarLista");
+            if (Request.IsAuthenticated)
+            {
+                if (ModelState.IsValid)
+            {
+                return RedirectToAction("TomarLista", new { fecha = asistencia.asi_fecha, idTema=asistencia.asi_tema_id});
+            }
+            string idUser = User.Identity.GetUserId();
+            List<Materia> materias = new List<Materia>();
+            List<Profesor_Materia> materiasprofesor = db.Profesor_Materia.Where(x => x.pro_mat_pro_id == idUser).ToList();
+            foreach (var item in materiasprofesor)
+            {
+                materias.Add(db.Materia.Find(item.pro_mat_mat_id));
+            }
+            ViewBag.materia = new SelectList(materias.ToList(), "mat_id", "mat_nombre");
+            return View();
+            }
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Asistencias/Index" });
+
+        }
+
+        public ActionResult TomarLista(DateTime? fecha, int? idTema)
+        {
+            if(fecha != null && idTema != null)
+            {
+                List<Asistencia> estudianteLista = db.Asistencia.Where(x => x.asi_fecha == fecha && x.asi_tema_id == idTema).ToList();
+
+                        Tema tema = db.Tema.Find(estudianteLista.First().asi_tema_id);
+                        ViewBag.materia = tema.Profesor_Materia;
+                        ViewBag.tema = tema;
+                        AsistenciaLista asistenciaLista = new AsistenciaLista();
+                        asistenciaLista.asistencias = estudianteLista;
+                        asistenciaLista.fecha =(DateTime) fecha;
+                        asistenciaLista.horaInicio = estudianteLista.First().asi_hora_inicio;
+                        return View(asistenciaLista);
+            }
+            return RedirectToAction("Index");
+        }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult TomarLista(AsistenciaLista asistenciaLista)
+        {
+            if (Request.IsAuthenticated)
+            {
+                if (ModelState.IsValid)
+                {
+                    TimeSpan time = asistenciaLista.horaFin.Subtract(asistenciaLista.horaInicio).Duration();
+                    int tiempo = time.Hours;
+                    if (time.Minutes >= 30)
+                    {
+                        tiempo++;
+                    }
+                    foreach (var asistencia in asistenciaLista.asistencias)
+                    {
+                        List<Inscripcion> inscripciones = db.Inscripcion.Where(x => x.ins_est_id == asistencia.asi_est_id).ToList();
+                        Inscripcion inscripcion = new Inscripcion();
+                        
+                        if (inscripciones.Count() != 0)
+                        {
+                            inscripcion = inscripciones.Last();
+                            int saldo = (int)inscripcion.ins_saldo;
+                            if (asistencia.asistio)
+                            {
+                                asistencia.asi_contenido = "Asistio";
+                                asistencia.asi_tiempo = tiempo;
+                                saldo = saldo - asistencia.asi_tiempo;
+                            }
+                            else
+                            {
+                                asistencia.asi_contenido = "Falto";
+                                asistencia.asi_tiempo = -1;
+                            }
+
+                            asistencia.asi_hora_fin = asistenciaLista.horaFin;
+                            if (saldo >= 0)
+                            {
+                                db.Entry(asistencia).State = EntityState.Modified;
+                                db.SaveChanges();
+                                inscripcion.ins_saldo = saldo;
+                                db.Entry(inscripcion).State = EntityState.Modified;
+                                db.SaveChanges();
+                            }
+                        }
+                    }
+
+                    return RedirectToAction("Index");
+                }
+                List<Asistencia> estudianteLista = db.Asistencia.Where(x => x.asi_fecha == asistenciaLista.fecha && x.asi_tema_id == asistenciaLista.asistencias.First().asi_tema_id).ToList();
+
+                Tema tema = db.Tema.Find(estudianteLista.First().asi_tema_id);
+                ViewBag.materia = tema.Profesor_Materia;
+                ViewBag.tema = tema;
+               
+                return View(asistenciaLista);
+            }
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Asistencias/Index" });
         }
         public JsonResult TraerTemasProfesor(int id)
         {
@@ -243,7 +351,7 @@ namespace Organizate.Controllers
         {
             DateTime date = DateTime.Parse(fecha);
             List<Asistencia> asis = new List<Asistencia>();
-            List<Asistencia> asistencias = db.Asistencia.Where(x => x.asi_fecha == date && x.asi_tema_id == id).ToList();
+            List<Asistencia> asistencias = db.Asistencia.Where(x => x.asi_fecha == date && x.asi_tema_id == id && x.asi_tiempo==0).ToList();
             if (asistencias.Count!=0)
             {
                 asis.Add(asistencias.First());
