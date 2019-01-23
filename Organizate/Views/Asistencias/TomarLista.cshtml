@@ -1,0 +1,124 @@
+﻿@model Organizate.AsistenciaLista
+
+@{
+    ViewBag.Title = "TomarLista";
+    var materia = ViewBag.materia as Organizate.Profesor_Materia;
+    var tema = ViewBag.tema as Organizate.Tema;
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header text-center">Registro Asistencia</h1>
+        </div>
+
+    </div>
+
+    <div class="row h4">
+        <div class="col-md-4">
+            @materia.Profesor.nombreCompleto
+
+            <div class="col-md-5">
+                <b>Profesor</b>
+            </div>
+        </div>
+    </div>
+    <div class="row h4">
+        <div class="col-md-4">
+            @materia.Materia.mat_nombre
+
+            <div class="col-md-5">
+                <b>Materia</b>
+            </div>
+        </div>
+    </div>
+    <div class="row h4">
+        <div class="col-md-4">
+            @tema.tema_nombre
+
+            <div class="col-md-5">
+                <b>Tema</b>
+            </div>
+        </div>
+    </div>
+    <div class="row h4">
+        <div class="col-md-4">
+            @Model.fecha
+
+            <div class="col-md-5">
+                <b>Fecha</b>
+            </div>
+        </div>
+    </div>
+    <div class="row h4">
+        <div class="col-md-4">
+            @Model.horaInicio
+
+            <div class="col-md-5">
+                <b>Hora Inicio</b>
+            </div>
+        </div>
+    </div>
+    <br />
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.horaFin, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.horaFin, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.horaFin, "", new { @class = "text-danger" })
+
+                @Html.HiddenFor(model => model.horaInicio)
+            </div>
+        </div>
+        <br />
+        <br />
+        <br />
+        <table class="table">
+            <tr>
+
+                <th>
+                    @Html.DisplayName("Estudiante")
+                </th>
+                <th>
+                    @Html.DisplayName("Asistencia")
+                </th>
+                <th></th>
+            </tr>
+
+            @for (int i = 0; i < Model.asistencias.Count; i++)
+            {
+                <tr>
+
+                    <td>
+                        @Html.DisplayFor(m => Model.asistencias[i].Estudiante.nombreCompleto)
+                    </td>
+                    <td>
+                        @Html.CheckBoxFor(m => Model.asistencias[i].asistio)
+                        @Html.HiddenFor(m => Model.asistencias[i].asi_id)
+                        @Html.HiddenFor(m => Model.asistencias[i].asi_fecha)
+                        @Html.HiddenFor(m => Model.asistencias[i].asi_hora_inicio)
+                        @Html.HiddenFor(m => Model.asistencias[i].asi_hora_fin)
+                        @Html.HiddenFor(m => Model.asistencias[i].asi_tiempo)
+                        @Html.HiddenFor(m => Model.asistencias[i].asi_contenido)
+                        @Html.HiddenFor(m => Model.asistencias[i].asi_est_id)
+                        @Html.HiddenFor(m => Model.asistencias[i].asi_tema_id)
+                    </td>
+
+                </tr>
+            }
+
+        </table>
+        <div class="form-group">
+            <div>
+                <h1 class="col-md-offset-1"><a href="@Url.Action("BuscarAsistencia","Asistencias")"><i class="fa fa-arrow-circle-left fa-fw"></i></a></h1>
+            </div>
+            <div class="col-md-offset-3 col-md-1">
+                <input type="submit" value="Guardar" class="btn btn-success" />
+            </div>
+        </div>
+
+}
+    </div>

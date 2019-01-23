@@ -651,6 +651,7 @@
     <Content Include="Views\Asistencias\RegistrarCita.cshtml" />
     <Content Include="Views\Asistencias\ConfirmarCita.cshtml" />
     <Content Include="Views\Asistencias\BuscarAsistencia.cshtml" />
+    <Content Include="Views\Asistencias\TomarLista.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

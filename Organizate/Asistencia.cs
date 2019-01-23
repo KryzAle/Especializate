@@ -45,5 +45,17 @@ namespace Organizate
 
         public virtual Estudiante Estudiante { get; set; }
         public virtual Tema Tema { get; set; }
+
+        public Boolean asistio { get; set; }
+    }
+    public class AsistenciaLista
+    {
+        public List<Asistencia> asistencias { get; set; }
+        [Required(ErrorMessage = "{0} es un campo obligatorio")]
+        [Range(typeof(System.TimeSpan), "7:00", "19:00",
+        ErrorMessage = "La hora {0} debe estar en el rango de {1} a {2}")]
+        public TimeSpan horaFin { get; set; }
+        public DateTime fecha { get; set; }
+        public TimeSpan horaInicio { get; set; }
     }
 }
