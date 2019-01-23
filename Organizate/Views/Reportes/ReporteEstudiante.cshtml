@@ -1,0 +1,130 @@
+﻿@model Organizate.Estudiante
+
+@{
+	ViewBag.Title = "ReporteEstudiante";
+	var asis = ViewBag.asistencia as IEnumerable<Organizate.Asistencia>;
+	var tema = ViewBag.tema as IEnumerable<Organizate.Tema>;
+	var insc = ViewBag.inscripcion as Organizate.Inscripcion;
+
+
+	Layout = "~/Views/Shared/_LayoutReport.cshtml";
+}
+
+<h2>Reporte Estudiante</h2>
+
+<table class="table">
+	<tr>
+		<th>
+			@Html.DisplayNameFor(model => model.est_nombre)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.est_telefono)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.est_direccion)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.est_cole_univ)
+		</th>
+		<th></th>
+	</tr>
+
+
+		<tr>
+			<td>
+				@Html.DisplayFor(model => model.est_nombre)
+				@Html.DisplayFor(model => model.est_apellido)
+			</td>
+			<td>
+				@Html.DisplayFor(model => model.est_telefono)
+			</td>
+			<td>
+				@Html.DisplayFor(model => model.est_direccion)
+			</td>
+			<td>
+				@Html.DisplayFor(model => model.est_cole_univ)
+			</td>
+		</tr>
+</table>
+
+@if (asis.Last().asi_hora_fin == null)
+{
+	<table class="table">
+		<tr>
+			<th>
+				Tiempo Restante
+			</th>
+			<th></th>
+		</tr>
+
+			<tr>
+				<td>
+					@insc.ins_saldo
+				</td>
+			</tr>
+	</table>
+
+	<table class="table">
+		<tr>
+			<th>
+				Temas Recibidos
+			</th>
+			<th></th>
+		</tr>
+
+		@foreach (var item in tema)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.tema_nombre)
+				</td>
+			</tr>
+		}
+	</table>
+	<table class="table">
+		<tr>
+
+			<th>
+				Fecha
+			</th>
+			<th>
+				Hora Entrada
+			</th>
+			<th>
+				Hora Salida
+			</th>
+			<th>
+				Tiempo
+			</th>
+
+			<th></th>
+		</tr>
+
+		@foreach (var item in asis)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.asi_fecha)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.asi_hora_inicio)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.asi_hora_fin)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.asi_tiempo)
+				</td>
+			</tr>
+		}
+	</table>
+
+
+
+}
+else
+{
+	<center>
+		<h4>Usted No posee asistencias</h4>
+	</center>
+}
