@@ -19,17 +19,27 @@ namespace Organizate.Controllers
         // GET: Horario_Profesor
         public ActionResult Horario(string id)
         {
-            if(id !=null)
-            profesorObj = db.Profesor.Find(id);
-            ViewBag.profesor = profesorObj;
+            if (Request.IsAuthenticated)
+            {
+                if (id != null)
+                    profesorObj = db.Profesor.Find(id);
+                ViewBag.profesor = profesorObj;
+
+                var horario_Profesor = db.Horario_Profesor.Where(x => x.hor_pro_pro_id == profesorObj.pro_id);
+                return View(horario_Profesor.ToList());
+            }
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Horario_Profesor/Index" });
             
-            var horario_Profesor = db.Horario_Profesor.Where(x => x.hor_pro_pro_id == profesorObj.pro_id);
-            return View(horario_Profesor.ToList());
         }
         public ActionResult Create_Horario_Profesor(string id)
         {
-            ViewBag.profesor = profesorObj;
-            return View();
+            if (Request.IsAuthenticated)
+            {
+                ViewBag.profesor = profesorObj;
+                return View();
+            }
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Horario_Profesor/Create_Horario_Profesor" });
+            
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -48,30 +58,45 @@ namespace Organizate.Controllers
         }
         public ActionResult Index()
         {
-            var horario_Profesor = db.Horario_Profesor.Include(h => h.Profesor);
-            return View(horario_Profesor.ToList());
+            if (Request.IsAuthenticated)
+            {
+                var horario_Profesor = db.Horario_Profesor.Include(h => h.Profesor);
+                return View(horario_Profesor.ToList());
+            }
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Horario_Profesor/Index" });
+            
         }
 
         // GET: Horario_Profesor/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if (Request.IsAuthenticated)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Horario_Profesor horario_Profesor = db.Horario_Profesor.Find(id);
+                if (horario_Profesor == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(horario_Profesor);
             }
-            Horario_Profesor horario_Profesor = db.Horario_Profesor.Find(id);
-            if (horario_Profesor == null)
-            {
-                return HttpNotFound();
-            }
-            return View(horario_Profesor);
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Horario_Profesor/Index" });
+            
         }
 
         // GET: Horario_Profesor/Create
         public ActionResult Create()
         {
-            ViewBag.hor_pro_pro_id = new SelectList(db.Profesor, "pro_id", "pro_nombre");
-            return View();
+            if (Request.IsAuthenticated)
+            {
+                ViewBag.hor_pro_pro_id = new SelectList(db.Profesor, "pro_id", "pro_nombre");
+                return View();
+            }
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Horario_Profesor/Index" });
+           
         }
 
         // POST: Horario_Profesor/Create
@@ -95,17 +120,22 @@ namespace Organizate.Controllers
         // GET: Horario_Profesor/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (Request.IsAuthenticated)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Horario_Profesor horario_Profesor = db.Horario_Profesor.Find(id);
+                if (horario_Profesor == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.hor_pro_pro_id = new SelectList(db.Profesor, "pro_id", "pro_nombre", horario_Profesor.hor_pro_pro_id);
+                return View(horario_Profesor);
             }
-            Horario_Profesor horario_Profesor = db.Horario_Profesor.Find(id);
-            if (horario_Profesor == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.hor_pro_pro_id = new SelectList(db.Profesor, "pro_id", "pro_nombre", horario_Profesor.hor_pro_pro_id);
-            return View(horario_Profesor);
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Horario_Profesor/Index" });
+            
         }
 
         // POST: Horario_Profesor/Edit/5
@@ -128,16 +158,21 @@ namespace Organizate.Controllers
         // GET: Horario_Profesor/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (Request.IsAuthenticated)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Horario_Profesor horario_Profesor = db.Horario_Profesor.Find(id);
+                if (horario_Profesor == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(horario_Profesor);
             }
-            Horario_Profesor horario_Profesor = db.Horario_Profesor.Find(id);
-            if (horario_Profesor == null)
-            {
-                return HttpNotFound();
-            }
-            return View(horario_Profesor);
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Horario_Profesor/Index" });
+            
         }
 
         // POST: Horario_Profesor/Delete/5

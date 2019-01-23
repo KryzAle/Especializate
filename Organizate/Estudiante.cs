@@ -57,5 +57,7 @@ namespace Organizate
         public virtual ICollection<Asistencia> Asistencia { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Inscripcion> Inscripcion { get; set; }
+
+        public string nombreCompleto { get => this.est_nombre + " " + this.est_apellido; }
     }
 }

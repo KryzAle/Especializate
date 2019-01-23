@@ -17,28 +17,43 @@ namespace Organizate.Controllers
         // GET: Profesors
         public ActionResult Index()
         {
-            return View(db.Profesor.ToList());
+            if (Request.IsAuthenticated)
+            {
+                return View(db.Profesor.ToList());
+            }
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Profesors/Index" });
+            
         }
 
         // GET: Profesors/Details/5
         public ActionResult Details(string id)
         {
-            if (id == null)
+            if (Request.IsAuthenticated)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Profesor profesor = db.Profesor.Find(id);
+                if (profesor == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(profesor);
             }
-            Profesor profesor = db.Profesor.Find(id);
-            if (profesor == null)
-            {
-                return HttpNotFound();
-            }
-            return View(profesor);
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Profesors/Index" });
+            
         }
 
         // GET: Profesors/Create
         public ActionResult Create()
         {
-            return RedirectToAction("Register","Account");
+            if (Request.IsAuthenticated)
+            {
+                return RedirectToAction("Register", "Account");
+            }
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Profesors/Create" });
+           
         }
 
         // POST: Profesors/Create
@@ -61,16 +76,21 @@ namespace Organizate.Controllers
         // GET: Profesors/Edit/5
         public ActionResult Edit(string id)
         {
-            if (id == null)
+            if (Request.IsAuthenticated)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Profesor profesor = db.Profesor.Find(id);
+                if (profesor == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(profesor);
             }
-            Profesor profesor = db.Profesor.Find(id);
-            if (profesor == null)
-            {
-                return HttpNotFound();
-            }
-            return View(profesor);
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Profesors/Index" });
+            
         }
 
         // POST: Profesors/Edit/5
@@ -92,16 +112,20 @@ namespace Organizate.Controllers
         // GET: Profesors/Delete/5
         public ActionResult Delete(string id)
         {
-            if (id == null)
+            if (Request.IsAuthenticated)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Profesor profesor = db.Profesor.Find(id);
+                if (profesor == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(profesor);
             }
-            Profesor profesor = db.Profesor.Find(id);
-            if (profesor == null)
-            {
-                return HttpNotFound();
-            }
-            return View(profesor);
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Profesors/Index" });
         }
 
         // POST: Profesors/Delete/5

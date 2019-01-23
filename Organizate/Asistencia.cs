@@ -30,7 +30,7 @@ namespace Organizate
         [Range(typeof(System.TimeSpan), "7:00", "19:00",
         ErrorMessage = "La hora {0} debe estar en el rango de {1} a {2}")]
         public Nullable<System.TimeSpan> asi_hora_fin { get; set; }
-        [Range(typeof(int), "1", "4",
+        [Range(typeof(int), "0", "4",
         ErrorMessage = "El campo {0} debe estar en el rango de {1} a {2}")]
         [DisplayName("Tiempo")]
         public int asi_tiempo { get; set; }

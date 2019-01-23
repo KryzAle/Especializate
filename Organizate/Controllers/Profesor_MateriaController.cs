@@ -17,31 +17,46 @@ namespace Organizate.Controllers
         // GET: Profesor_Materia
         public ActionResult Index()
         {
-            var profesor_Materia = db.Profesor_Materia.Include(p => p.Materia).Include(p => p.Profesor);
-            return View(profesor_Materia.ToList());
+            if (Request.IsAuthenticated)
+            {
+                var profesor_Materia = db.Profesor_Materia.Include(p => p.Materia).Include(p => p.Profesor);
+                return View(profesor_Materia.ToList());
+            }
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Profesor_Materia/Index" });
+            
         }
 
         // GET: Profesor_Materia/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if (Request.IsAuthenticated)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Profesor_Materia profesor_Materia = db.Profesor_Materia.Find(id);
+                if (profesor_Materia == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(profesor_Materia);
             }
-            Profesor_Materia profesor_Materia = db.Profesor_Materia.Find(id);
-            if (profesor_Materia == null)
-            {
-                return HttpNotFound();
-            }
-            return View(profesor_Materia);
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Profesor_Materia/Index" });
+            
         }
 
         // GET: Profesor_Materia/Create
         public ActionResult Create()
         {
-            ViewBag.pro_mat_mat_id = new SelectList(db.Materia, "mat_id", "mat_nombre");
-            ViewBag.pro_mat_pro_id = new SelectList(db.Profesor, "pro_id", "pro_nombre");
-            return View();
+            if (Request.IsAuthenticated)
+            {
+                ViewBag.pro_mat_mat_id = new SelectList(db.Materia, "mat_id", "mat_nombre");
+                ViewBag.pro_mat_pro_id = new SelectList(db.Profesor, "pro_id", "nombreCompleto");
+                return View();
+            }
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Profesor_Materia/Create" });
+            
         }
 
         // POST: Profesor_Materia/Create
@@ -66,18 +81,23 @@ namespace Organizate.Controllers
         // GET: Profesor_Materia/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (Request.IsAuthenticated)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Profesor_Materia profesor_Materia = db.Profesor_Materia.Find(id);
+                if (profesor_Materia == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.pro_mat_mat_id = new SelectList(db.Materia, "mat_id", "mat_nombre", profesor_Materia.pro_mat_mat_id);
+                ViewBag.pro_mat_pro_id = new SelectList(db.Profesor, "pro_id", "pro_nombre", profesor_Materia.pro_mat_pro_id);
+                return View(profesor_Materia);
             }
-            Profesor_Materia profesor_Materia = db.Profesor_Materia.Find(id);
-            if (profesor_Materia == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.pro_mat_mat_id = new SelectList(db.Materia, "mat_id", "mat_nombre", profesor_Materia.pro_mat_mat_id);
-            ViewBag.pro_mat_pro_id = new SelectList(db.Profesor, "pro_id", "pro_nombre", profesor_Materia.pro_mat_pro_id);
-            return View(profesor_Materia);
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Profesor_Materia/Index" });
+            
         }
 
         // POST: Profesor_Materia/Edit/5
@@ -101,16 +121,21 @@ namespace Organizate.Controllers
         // GET: Profesor_Materia/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (Request.IsAuthenticated)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Profesor_Materia profesor_Materia = db.Profesor_Materia.Find(id);
+                if (profesor_Materia == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(profesor_Materia);
             }
-            Profesor_Materia profesor_Materia = db.Profesor_Materia.Find(id);
-            if (profesor_Materia == null)
-            {
-                return HttpNotFound();
-            }
-            return View(profesor_Materia);
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Profesor_Materia/Index" });
+            
         }
 
         // POST: Profesor_Materia/Delete/5

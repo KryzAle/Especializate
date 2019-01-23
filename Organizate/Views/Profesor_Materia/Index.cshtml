@@ -35,7 +35,7 @@
 					@Html.DisplayFor(modelItem => item.Materia.mat_nombre)
 				</td>
 				<td>
-					@Html.DisplayFor(modelItem => item.Profesor.pro_nombre)
+					@Html.DisplayFor(modelItem => item.Profesor.nombreCompleto)
 				</td>
 				<td>
 					<a href="@Url.Action("Edit","Materias", new { id = item.pro_mat_id })"><i class="fa fa-2x fa-edit"></i></a>

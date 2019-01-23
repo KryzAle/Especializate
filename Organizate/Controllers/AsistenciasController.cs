@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using Organizate;
 
 namespace Organizate.Controllers
@@ -23,7 +24,7 @@ namespace Organizate.Controllers
                 var asistencia = db.Asistencia.Include(a => a.Estudiante).Include(a => a.Tema);
                 return View(asistencia.ToList());
             }
-            return RedirectToAction("Login", "Account", new { returnUrl = "~/Asistencia/Cita" });
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Asistencias/Cita" });
 
         }
         public JsonResult TraerTemas(int id)
@@ -49,7 +50,7 @@ namespace Organizate.Controllers
                 ViewBag.pro_mat_mat_id = new SelectList(db.Materia, "mat_id", "mat_nombre");
                 return View();
             }
-            return RedirectToAction("Login", "Account", new { returnUrl = "~/Asistencia/CreateCita" });
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Asistencias/CreateCita" });
 
         }
         [HttpPost]
@@ -63,33 +64,65 @@ namespace Organizate.Controllers
         }
         public ActionResult RegistrarCita()
         {
-            Profesor_Materia profesor_materia = db.Profesor_Materia.Find(temaCita.tema_pro_mat_id);
-            List<Horario_Profesor> horario_profesor = db.Horario_Profesor.Where(x => x.hor_pro_pro_id == profesor_materia.pro_mat_pro_id).ToList();
-            ViewBag.asi_est_id = new SelectList(db.Estudiante, "est_id", "est_nombre");
-            return View(horario_profesor.ToList());
+            if (Request.IsAuthenticated)
+            {
+                Profesor_Materia profesor_materia = db.Profesor_Materia.Find(temaCita.tema_pro_mat_id);
+                List<Horario_Profesor> horario_profesor = db.Horario_Profesor.Where(x => x.hor_pro_pro_id == profesor_materia.pro_mat_pro_id).ToList();
+                ViewBag.asi_est_id = new SelectList(db.Estudiante, "est_id", "est_nombre");
+                return View(horario_profesor.ToList());
+            }
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Asistencias/Cita" });
+           
         }
         public ActionResult ConfirmarCita(int id)
         {
-            Horario_Profesor horario = db.Horario_Profesor.Find(id);
-            Asistencia asistencia = new Asistencia();
-            asistencia.asi_tema_id = temaCita.tema_id;
-            asistencia.asi_hora_inicio = horario.hor_pro_hora_inicio;
-            DateTime dt = DateTime.Now;
-            var desicion = true;
-            do
+            if (Request.IsAuthenticated)
             {
-                int dia =(int) dt.DayOfWeek;
-                string dialetra = obtenerDia(dia);
-                if (dialetra.Equals(horario.hor_pro_dia))
+                Horario_Profesor horario = db.Horario_Profesor.Find(id);
+
+                Asistencia asistencia = new Asistencia();
+                asistencia.asi_tema_id = temaCita.tema_id;
+                asistencia.asi_hora_inicio = horario.hor_pro_hora_inicio;
+                DateTime dt = DateTime.Now;
+                var desicion = true;
+                do
                 {
-                    asistencia.asi_fecha = dt;
-                    desicion = false;
-                }
-                dt = dt.AddDays(1);
-            } while (desicion);
-            ViewBag.asi_est_id = new SelectList(db.Estudiante, "est_id", "est_nombre");
-            return View(asistencia);
+                    int dia = (int)dt.DayOfWeek;
+                    string dialetra = obtenerDia(dia);
+                    if (dialetra.Equals(horario.hor_pro_dia))
+                    {
+                        asistencia.asi_fecha = dt;
+                        desicion = false;
+                    }
+                    dt = dt.AddDays(1);
+                } while (desicion);
+                List<Estudiante> estudiantesInscritos = buscarEstudiantesInscritos();
+                ViewBag.asi_est_id = new SelectList(estudiantesInscritos.ToList(), "est_id", "nombreCompleto");
+                return View(asistencia);
+            }
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Asistencias/Cita" });
+           
         }
+        public List<Estudiante> buscarEstudiantesInscritos()
+        {
+            List<Estudiante> estudiantes = db.Estudiante.ToList();
+            List<Estudiante> estudiantesInscritos = new List<Estudiante>();
+            foreach (var item in estudiantes)
+            {
+                List<Inscripcion> inscripciones = db.Inscripcion.Where(x => x.ins_est_id == item.est_id).ToList();
+                if (inscripciones.Count != 0)
+                {
+                    Inscripcion inscripcion = inscripciones.Last();
+                    if (inscripcion.ins_saldo > 0)
+                    {
+                        estudiantesInscritos.Add(item);
+                    }
+                }
+
+            }
+            return estudiantesInscritos.ToList();
+        }
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult ConfirmarCita(Asistencia asistencia)
@@ -100,8 +133,8 @@ namespace Organizate.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Cita");
             }
-
-            ViewBag.asi_est_id = new SelectList(db.Estudiante, "est_id", "est_nombre", asistencia.asi_est_id);
+            List<Estudiante> estudiantesInscritos = buscarEstudiantesInscritos();
+            ViewBag.asi_est_id = new SelectList(estudiantesInscritos.ToList(), "est_id", "nombreCompleto", asistencia.asi_est_id);
             return View(asistencia);
         }
         public string obtenerDia(int dia)
@@ -137,67 +170,112 @@ namespace Organizate.Controllers
         }
         public ActionResult Index()
         {
-            var asistencia = db.Asistencia.Include(a => a.Estudiante).Include(a => a.Tema);
-            return View(asistencia.ToList());
+            if (Request.IsAuthenticated)
+            {
+                var asistencia = db.Asistencia.Where(x => x.asi_tiempo != 0).ToList();
+                return View(asistencia.ToList());
+            }
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Asistencias/Index" });
+           
         }
 
         // GET: Asistencias/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if (Request.IsAuthenticated)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Asistencia asistencia = db.Asistencia.Find(id);
+                if (asistencia == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(asistencia);
             }
-            Asistencia asistencia = db.Asistencia.Find(id);
-            if (asistencia == null)
-            {
-                return HttpNotFound();
-            }
-            return View(asistencia);
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Asistencias/Index" });
+            
         }
 
         // GET: Asistencias/Create
-        public ActionResult Create()
+        public ActionResult BuscarAsistencia()
         {
-            ViewBag.asi_est_id = new SelectList(db.Estudiante, "est_id", "est_nombre");
-            ViewBag.asi_tema_id = new SelectList(db.Tema, "tema_id", "tema_nombre");
-            return View();
-        }
+            if (Request.IsAuthenticated)
+            {
+                string idUser= User.Identity.GetUserId();
+                List<Materia> materias = new List<Materia>();
+                List<Profesor_Materia> materiasprofesor = db.Profesor_Materia.Where(x => x.pro_mat_pro_id == idUser ).ToList();
+                foreach (var item in materiasprofesor)
+                {
+                    materias.Add(db.Materia.Find(item.pro_mat_mat_id));
+                }
+                ViewBag.materia = new SelectList(materias.ToList(), "mat_id", "mat_nombre");
+                return View();
+            }
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Asistencias/Create" });
 
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult BuscarAsistencia(Asistencia asistencia)
+        {
+            return RedirectToAction("TomarLista");
+        }
+        public JsonResult TraerTemasProfesor(int id)
+        {
+            string idUser = User.Identity.GetUserId();
+            IList<Profesor_Materia> profesor_materia = db.Profesor_Materia.Where(t => t.pro_mat_mat_id == id && t.pro_mat_pro_id == idUser).ToList();
+            var listaTemasMat = new List<Tema>();
+            foreach (var itemProfesorMateria in profesor_materia)
+            {
+                foreach (var item in itemProfesorMateria.Tema)
+                {
+
+                    listaTemasMat.Add(item);
+                }
+            }
+            var data = new SelectList(listaTemasMat.ToList(), "tema_id", "tema_nombre");
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult TraerHora(int id, string fecha)
+        {
+            DateTime date = DateTime.Parse(fecha);
+            List<Asistencia> asis = new List<Asistencia>();
+            List<Asistencia> asistencias = db.Asistencia.Where(x => x.asi_fecha == date && x.asi_tema_id == id).ToList();
+            if (asistencias.Count!=0)
+            {
+                asis.Add(asistencias.First());
+            }
+            var data = new SelectList(asis.ToList(), "asi_hora_inicio", "asi_hora_inicio");
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
         // POST: Asistencias/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "asi_id,asi_fecha,asi_hora_inicio,asi_hora_fin,asi_tiempo,asi_contenido,asi_est_id,asi_tema_id")] Asistencia asistencia)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Asistencia.Add(asistencia);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.asi_est_id = new SelectList(db.Estudiante, "est_id", "est_nombre", asistencia.asi_est_id);
-            ViewBag.asi_tema_id = new SelectList(db.Tema, "tema_id", "tema_nombre", asistencia.asi_tema_id);
-            return View(asistencia);
-        }
+        
 
         // GET: Asistencias/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (Request.IsAuthenticated)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Asistencia asistencia = db.Asistencia.Find(id);
+                if (asistencia == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.asi_est_id = new SelectList(db.Estudiante, "est_id", "est_nombre", asistencia.asi_est_id);
+                ViewBag.asi_tema_id = new SelectList(db.Tema, "tema_id", "tema_nombre", asistencia.asi_tema_id);
+                return View(asistencia);
             }
-            Asistencia asistencia = db.Asistencia.Find(id);
-            if (asistencia == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.asi_est_id = new SelectList(db.Estudiante, "est_id", "est_nombre", asistencia.asi_est_id);
-            ViewBag.asi_tema_id = new SelectList(db.Tema, "tema_id", "tema_nombre", asistencia.asi_tema_id);
-            return View(asistencia);
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Asistencias/Index" });
+           
         }
 
         // POST: Asistencias/Edit/5
@@ -221,16 +299,21 @@ namespace Organizate.Controllers
         // GET: Asistencias/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (Request.IsAuthenticated)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Asistencia asistencia = db.Asistencia.Find(id);
+                if (asistencia == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(asistencia);
             }
-            Asistencia asistencia = db.Asistencia.Find(id);
-            if (asistencia == null)
-            {
-                return HttpNotFound();
-            }
-            return View(asistencia);
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Asistencias/Index" });
+            
         }
 
         // POST: Asistencias/Delete/5

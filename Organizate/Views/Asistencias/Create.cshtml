@@ -1,13 +1,13 @@
 ﻿@model Organizate.Asistencia
 
 @{
-    ViewBag.Title = "Create";
-    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+	ViewBag.Title = "Create";
+	Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 <div id="page-wrapper">
 	<div class="row">
 		<div class="col-lg-12">
-			<h1 class="page-header">Crear Asistencia</h1>
+			<h1 class="page-header text-center">Asistencia</h1>
 		</div>
 		<!-- /.col-lg-12 -->
 	</div>
@@ -15,75 +15,85 @@
 	{
 		@Html.AntiForgeryToken()
 
-		<div class="form-horizontal">
-			<h4>Asistencia</h4>
-			<hr />
-			@Html.ValidationSummary(true, "", new { @class = "text-danger" })
-			<div class="form-group">
-				@Html.LabelFor(model => model.asi_fecha, htmlAttributes: new { @class = "control-label col-md-2" })
-				<div class="col-md-10">
-					@Html.EditorFor(model => model.asi_fecha, new { htmlAttributes = new { @class = "date-picker" } })
-					@Html.ValidationMessageFor(model => model.asi_fecha, "", new { @class = "text-danger" })
-				</div>
-			</div>
+	<div class="form-horizontal">
+		<div class="form-group">
+			@Html.Label("Materia", "Materia", htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.DropDownList("materia", ViewBag.materia as SelectList, "Seleccionar", htmlAttributes: new { @class = "form-control" })
 
-			<div class="form-group">
-				@Html.LabelFor(model => model.asi_hora_inicio, htmlAttributes: new { @class = "control-label col-md-2" })
-				<div class="col-md-10">
-					@Html.EditorFor(model => model.asi_hora_inicio, new { htmlAttributes = new { @class = "form-control" } })
-					@Html.ValidationMessageFor(model => model.asi_hora_inicio, "", new { @class = "text-danger" })
-				</div>
-			</div>
-
-			<div class="form-group">
-				@Html.LabelFor(model => model.asi_hora_fin, htmlAttributes: new { @class = "control-label col-md-2" })
-				<div class="col-md-10">
-					@Html.EditorFor(model => model.asi_hora_fin, new { htmlAttributes = new { @class = "form-control" } })
-					@Html.ValidationMessageFor(model => model.asi_hora_fin, "", new { @class = "text-danger" })
-				</div>
-			</div>
-
-			<div class="form-group">
-				@Html.LabelFor(model => model.asi_tiempo, htmlAttributes: new { @class = "control-label col-md-2" })
-				<div class="col-md-10">
-					@Html.EditorFor(model => model.asi_tiempo, new { htmlAttributes = new { @class = "form-control" } })
-					@Html.ValidationMessageFor(model => model.asi_tiempo, "", new { @class = "text-danger" })
-				</div>
-			</div>
-
-			<div class="form-group">
-				@Html.LabelFor(model => model.asi_contenido, htmlAttributes: new { @class = "control-label col-md-2" })
-				<div class="col-md-10">
-					@Html.EditorFor(model => model.asi_contenido, new { htmlAttributes = new { @class = "form-control" } })
-					@Html.ValidationMessageFor(model => model.asi_contenido, "", new { @class = "text-danger" })
-				</div>
-			</div>
-
-			<div class="form-group">
-				@Html.LabelFor(model => model.asi_est_id, "Estudiante", htmlAttributes: new { @class = "control-label col-md-2" })
-				<div class="col-md-10">
-					@Html.DropDownList("asi_est_id", null, htmlAttributes: new { @class = "form-control" })
-					@Html.ValidationMessageFor(model => model.asi_est_id, "", new { @class = "text-danger" })
-				</div>
-			</div>
-
-			<div class="form-group">
-				@Html.LabelFor(model => model.asi_tema_id, "Tema", htmlAttributes: new { @class = "control-label col-md-2" })
-				<div class="col-md-10">
-					@Html.DropDownList("asi_tema_id", null, htmlAttributes: new { @class = "form-control" })
-					@Html.ValidationMessageFor(model => model.asi_tema_id, "", new { @class = "text-danger" })
-				</div>
-			</div>
-
-			<div class="form-group">
-				<div class="col-md-offset-2 col-md-10">
-					<input type="submit" value="Create" class="btn btn-default" />
-				</div>
 			</div>
 		</div>
+		<div class="form-group">
+			@Html.Label("Tema", htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.DropDownList("asi_tema_id", new SelectList(string.Empty, "tema_id", "tema_nombre"), "Seleccionar", htmlAttributes: new { @class = "form-control" })
+
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.asi_fecha, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.Editor("asi_fecha", new { htmlAttributes = new { @class = "date-picker" } })
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.asi_hora_inicio, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.Editor("asi_hora_inicio", new { htmlAttributes = new { @class = "form-control" } })
+			</div>
+		</div>@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+		<div class="form-group">
+			<div>
+				<h1 class="col-md-offset-1"><a href="@Url.Action("Index","Asistencias")"><i class="fa fa-arrow-circle-left fa-fw"></i></a></h1>
+			</div>
+			<div class="col-md-offset-3 col-md-1">
+				<input type="submit" value="Buscar" class="btn btn-success" />
+			</div>
+		</div>
+	</div>
 	}
 
-	<div>
-		@Html.ActionLink("Back to List", "Index")
-	</div>
 </div>
+@section Scripts {
+	<script>
+        $(document).ready(function () {
+			 $("#materia").change(function () {
+                 $.ajax({
+                    Type: 'POST',
+                    url: '@Url.Action("TraerTemasProfesor")',
+                    dataType: 'json',
+					 data: { id: $("#materia").val() },
+                     success: function (listaTemasMat) {
+
+						 $('#asi_tema_id').empty();
+                         $.each(listaTemasMat, function (index, row) {
+							 $("#asi_tema_id").append('<option value="' + row.Value + '">' + row.Text + '</option>');
+                        });
+                    }
+                })
+            });
+			$("#asi_fecha").change(function () {
+				$.ajax({
+					Type: 'POST',
+					url: '@Url.Action("TraerHora")',
+					dataType: 'json',
+					data: { id: $("#asi_tema_id").val(), fecha: $("#asi_fecha").val() },
+					success: function (listahora) {
+
+						$('#asi_hora_inicio').val("");
+						$.each(listahora, function (index, row) {
+							$("#asi_hora_inicio").val(row.Text);
+						});
+					}
+				})
+
+			});
+        });
+	</script>
+	@Scripts.Render("~/bundles/jqueryval")
+
+}

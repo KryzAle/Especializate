@@ -23,22 +23,32 @@ namespace Organizate.Controllers
         // GET: Estudiantes/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if (Request.IsAuthenticated)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Estudiante estudiante = db.Estudiante.Find(id);
+                if (estudiante == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(estudiante);
             }
-            Estudiante estudiante = db.Estudiante.Find(id);
-            if (estudiante == null)
-            {
-                return HttpNotFound();
-            }
-            return View(estudiante);
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Estudiantes/Index" });
+            
         }
 
         // GET: Estudiantes/Create
         public ActionResult Create()
         {
-            return View();
+            if (Request.IsAuthenticated)
+            {
+                return View();
+            }
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Estudiantes/Create" });
+            
         }
 
         // POST: Estudiantes/Create
@@ -61,16 +71,22 @@ namespace Organizate.Controllers
         // GET: Estudiantes/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (Request.IsAuthenticated)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Estudiante estudiante = db.Estudiante.Find(id);
+                if (estudiante == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(estudiante);
             }
-            Estudiante estudiante = db.Estudiante.Find(id);
-            if (estudiante == null)
-            {
-                return HttpNotFound();
-            }
-            return View(estudiante);
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Estudiantes/Index" });
+
+            
         }
 
         // POST: Estudiantes/Edit/5
@@ -92,16 +108,21 @@ namespace Organizate.Controllers
         // GET: Estudiantes/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (Request.IsAuthenticated)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Estudiante estudiante = db.Estudiante.Find(id);
+                if (estudiante == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(estudiante);
             }
-            Estudiante estudiante = db.Estudiante.Find(id);
-            if (estudiante == null)
-            {
-                return HttpNotFound();
-            }
-            return View(estudiante);
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Estudiantes/Index" });
+            
         }
 
         // POST: Estudiantes/Delete/5

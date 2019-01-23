@@ -52,7 +52,6 @@
                 @Html.DisplayFor(modelItem => item.Estudiante.est_nombre)
             </td>
             <td>
-                <a href="@Url.Action("Edit","Asistencias", new { id = item.asi_id })"><i class="fa fa-2x fa-edit"></i></a>
                 <a href="@Url.Action("Delete","Asistencias", new { id = item.asi_id })"><i class="fa fa-2x fa-trash"></i></a>
             </td>
         </tr>

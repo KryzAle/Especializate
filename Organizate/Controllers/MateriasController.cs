@@ -17,28 +17,42 @@ namespace Organizate.Controllers
         // GET: Materias
         public ActionResult Index()
         {
-            return View(db.Materia.ToList());
+            if (Request.IsAuthenticated)
+            {
+                return View(db.Materia.ToList());
+            }
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Materias/Index" });
+            
         }
 
         // GET: Materias/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if (Request.IsAuthenticated)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Materia materia = db.Materia.Find(id);
+                if (materia == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(materia);
             }
-            Materia materia = db.Materia.Find(id);
-            if (materia == null)
-            {
-                return HttpNotFound();
-            }
-            return View(materia);
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Materias/Index" });
+            
         }
 
         // GET: Materias/Create
         public ActionResult Create()
         {
-            return View();
+            if (Request.IsAuthenticated)
+            {
+                return View();
+            }
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Materias/Create" });
         }
 
         // POST: Materias/Create
@@ -61,16 +75,21 @@ namespace Organizate.Controllers
         // GET: Materias/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (Request.IsAuthenticated)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Materia materia = db.Materia.Find(id);
+                if (materia == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(materia);
             }
-            Materia materia = db.Materia.Find(id);
-            if (materia == null)
-            {
-                return HttpNotFound();
-            }
-            return View(materia);
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Materias/Index" });
+            
         }
 
         // POST: Materias/Edit/5
@@ -92,16 +111,21 @@ namespace Organizate.Controllers
         // GET: Materias/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (Request.IsAuthenticated)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Materia materia = db.Materia.Find(id);
+                if (materia == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(materia);
             }
-            Materia materia = db.Materia.Find(id);
-            if (materia == null)
-            {
-                return HttpNotFound();
-            }
-            return View(materia);
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Materias/Index" });
+            
         }
 
         // POST: Materias/Delete/5

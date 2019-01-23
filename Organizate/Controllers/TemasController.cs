@@ -18,34 +18,49 @@ namespace Organizate.Controllers
         // GET: Temas
         public ActionResult Index(int? id)
         {
-            if (id != null)
-                profesor_materia = db.Profesor_Materia.Find(id);
-            ViewBag.profesor = profesor_materia;
+            if (Request.IsAuthenticated)
+            {
+                if (id != null)
+                    profesor_materia = db.Profesor_Materia.Find(id);
+                ViewBag.profesor = profesor_materia;
 
-            var temas = db.Tema.Where(x => x.tema_pro_mat_id == profesor_materia.pro_mat_id);
-            return View(temas.ToList());
+                var temas = db.Tema.Where(x => x.tema_pro_mat_id == profesor_materia.pro_mat_id);
+                return View(temas.ToList());
+            }
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Temas/Index" });
+            
         }
 
         // GET: Temas/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if (Request.IsAuthenticated)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Tema tema = db.Tema.Find(id);
+                if (tema == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(tema);
             }
-            Tema tema = db.Tema.Find(id);
-            if (tema == null)
-            {
-                return HttpNotFound();
-            }
-            return View(tema);
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Temas/Index" });
+            
         }
 
         // GET: Temas/Create
         public ActionResult Create()
         {
-            ViewBag.profesor = profesor_materia;
-            return View();
+            if (Request.IsAuthenticated)
+            {
+                ViewBag.profesor = profesor_materia;
+                return View();
+            }
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Temas/Create" });
+            
         }
 
         // POST: Temas/Create
@@ -70,17 +85,22 @@ namespace Organizate.Controllers
         // GET: Temas/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (Request.IsAuthenticated)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Tema tema = db.Tema.Find(id);
+                if (tema == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.tema_pro_mat_id = new SelectList(db.Profesor_Materia, "pro_mat_id", "pro_mat_id", tema.tema_pro_mat_id);
+                return View(tema);
             }
-            Tema tema = db.Tema.Find(id);
-            if (tema == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.tema_pro_mat_id = new SelectList(db.Profesor_Materia, "pro_mat_id", "pro_mat_id", tema.tema_pro_mat_id);
-            return View(tema);
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Temas/Index" });
+            
         }
 
         // POST: Temas/Edit/5
@@ -103,16 +123,21 @@ namespace Organizate.Controllers
         // GET: Temas/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (Request.IsAuthenticated)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Tema tema = db.Tema.Find(id);
+                if (tema == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(tema);
             }
-            Tema tema = db.Tema.Find(id);
-            if (tema == null)
-            {
-                return HttpNotFound();
-            }
-            return View(tema);
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Temas/Index" });
+            
         }
 
         // POST: Temas/Delete/5

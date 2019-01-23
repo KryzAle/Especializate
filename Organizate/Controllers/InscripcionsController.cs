@@ -54,7 +54,7 @@ namespace Organizate.Controllers
         {
             if (Request.IsAuthenticated)
             {
-                ViewBag.ins_est_id = new SelectList(db.Estudiante, "est_id", "est_nombre");
+                ViewBag.ins_est_id = new SelectList(db.Estudiante, "est_id", "nombreCompleto");
                 return View();
             }
             return RedirectToAction("Login", "Account", new { returnUrl = "~/Inscripcions/Create" });
@@ -72,6 +72,7 @@ namespace Organizate.Controllers
             if (ModelState.IsValid)
             {
                 inscripcion.ins_valor = 10 * inscripcion.ins_total_horas;
+                inscripcion.ins_saldo = inscripcion.ins_total_horas;
                 db.Inscripcion.Add(inscripcion);
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -31,5 +31,6 @@ namespace Organizate
         public int ins_est_id { get; set; }
 
         public virtual Estudiante Estudiante { get; set; }
+        
     }
 }

@@ -55,5 +55,7 @@ namespace Organizate
         public virtual ICollection<Horario_Profesor> Horario_Profesor { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Profesor_Materia> Profesor_Materia { get; set; }
+
+        public string nombreCompleto { get => this.pro_nombre + " " + this.pro_apellido; }
     }
 }
