@@ -258,7 +258,7 @@ namespace Organizate.Controllers
         {
             if(fecha != null && idTema != null)
             {
-                List<Asistencia> estudianteLista = db.Asistencia.Where(x => x.asi_fecha == fecha && x.asi_tema_id == idTema).ToList();
+                List<Asistencia> estudianteLista = db.Asistencia.Where(x => x.asi_fecha == fecha && x.asi_tema_id == idTema && x.asi_tiempo==0).ToList();
 
                         Tema tema = db.Tema.Find(estudianteLista.First().asi_tema_id);
                         ViewBag.materia = tema.Profesor_Materia;
@@ -321,9 +321,8 @@ namespace Organizate.Controllers
 
                     return RedirectToAction("Index");
                 }
-                List<Asistencia> estudianteLista = db.Asistencia.Where(x => x.asi_fecha == asistenciaLista.fecha && x.asi_tema_id == asistenciaLista.asistencias.First().asi_tema_id).ToList();
-
-                Tema tema = db.Tema.Find(estudianteLista.First().asi_tema_id);
+                
+                Tema tema = db.Tema.Find(asistenciaLista.asistencias.First().asi_tema_id);
                 ViewBag.materia = tema.Profesor_Materia;
                 ViewBag.tema = tema;
                
