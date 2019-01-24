@@ -1,0 +1,80 @@
+﻿@model Organizate.Estudiante
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div id="page-wrapper">
+	<div class="row">
+		<div class="col-lg-12">
+			<h1 class="page-header">Detalle Estudiante</h1>
+		</div>
+		<!-- /.col-lg-12 -->
+	</div>
+	<div>
+		<h4>Estudiante</h4>
+		<hr />
+		<dl class="dl-horizontal">
+			<dt>
+				@Html.DisplayNameFor(model => model.est_nombre)
+			</dt>
+
+			<dd>
+				@Html.DisplayFor(model => model.est_nombre)
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.est_apellido)
+			</dt>
+
+			<dd>
+				@Html.DisplayFor(model => model.est_apellido)
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.est_telefono)
+			</dt>
+
+			<dd>
+				@Html.DisplayFor(model => model.est_telefono)
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.est_direccion)
+			</dt>
+
+			<dd>
+				@Html.DisplayFor(model => model.est_direccion)
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.est_correo)
+			</dt>
+
+			<dd>
+				@Html.DisplayFor(model => model.est_correo)
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.est_cedula)
+			</dt>
+
+			<dd>
+				@Html.DisplayFor(model => model.est_cedula)
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.est_cole_univ)
+			</dt>
+
+			<dd>
+				@Html.DisplayFor(model => model.est_cole_univ)
+			</dd>
+
+		</dl>
+	</div>
+	<p>
+		@Html.ActionLink("Edit", "Edit", new { id = Model.est_id }) |
+		@Html.ActionLink("Back to List", "Index")
+	</p>
+	</div>

@@ -1,0 +1,142 @@
+﻿@model Organizate.Estudiante
+
+@{
+	ViewBag.Title = "ReporteEstudiante";
+	var asis = ViewBag.asistencia as IEnumerable<Organizate.Asistencia>;
+	var insc = ViewBag.inscripcion as Organizate.Inscripcion;
+
+
+	Layout = "~/Views/Shared/_LayoutReport.cshtml";
+}
+
+<center><h2>Reporte Estudiante - Centro de Capacitacion</h2></center>	
+
+<table class="table" >
+	<tr>
+		<th>
+			@Html.DisplayNameFor(model => model.est_nombre)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.est_telefono)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.est_direccion)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.est_cole_univ)
+		</th>
+		<th></th>
+	</tr>
+
+
+	<tr>
+		<td>
+			@Html.DisplayFor(model => model.est_nombre)
+			@Html.DisplayFor(model => model.est_apellido)
+		</td>
+		<td>
+			@Html.DisplayFor(model => model.est_telefono)
+		</td>
+		<td>
+			@Html.DisplayFor(model => model.est_direccion)
+		</td>
+		<td>
+			@Html.DisplayFor(model => model.est_cole_univ)
+		</td>
+	</tr>
+</table>
+@if(asis.Count() != 0)
+{
+
+if (asis.First().asi_hora_fin != null)
+{
+
+	<table class="table" >
+		<tr>
+			<th>
+				Tema
+			</th>
+			<th>
+				Profesor
+			</th>
+			<th>
+				Fecha
+			</th>
+			<th>
+				Hora Entrada
+			</th>
+			<th>
+				Hora Salida
+			</th>
+
+			<th></th>
+		</tr>
+
+		@foreach (var item in asis)
+		{
+			if (item.asi_hora_fin != null)
+			{
+
+				<tr>
+					<td>
+						@Html.DisplayFor(modelItem => item.Tema.tema_nombre)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Tema.Profesor_Materia.Profesor.nombreCompleto)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.asi_fecha)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.asi_hora_inicio)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.asi_hora_fin)
+					</td>
+				</tr>
+			}
+		}
+	</table>
+	<table class="table">
+		<tr>
+			<th>
+				<center>Tiempo de Clases Transcurrido</center>
+			</th>
+			<th>
+				<center>Tiempo de Clases Restante </center>
+			</th>
+
+			<th></th>
+		</tr>
+
+		<tr>
+
+			<td align="center">
+				@ViewBag.transcurrido
+			</td>
+			<td align="center">
+				@insc.ins_saldo
+			</td>
+		</tr>
+
+
+	</table>
+
+}
+else
+{
+	<center>
+		<h4>Usted No posee asistencias</h4>
+	</center>
+}
+
+}
+else
+{
+    <center>
+        <h4>Usted No posee asistencias</h4>
+    </center>
+}
+<br><br>
+    <a href="@Url.Action("Export","Reportes", new { cedula = Model.est_cedula})" class="btn btn-danger">Generar PDF</a>
+<br><br>

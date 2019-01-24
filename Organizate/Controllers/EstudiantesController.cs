@@ -21,7 +21,7 @@ namespace Organizate.Controllers
         }
 
         // GET: Estudiantes/Details/5
-        public ActionResult Details(int? id)
+       /* public ActionResult Details(int? id)
         {
             if (Request.IsAuthenticated)
             {
@@ -38,7 +38,7 @@ namespace Organizate.Controllers
             }
             return RedirectToAction("Login", "Account", new { returnUrl = "~/Estudiantes/Index" });
             
-        }
+        }*/
 
         // GET: Estudiantes/Create
         public ActionResult Create()

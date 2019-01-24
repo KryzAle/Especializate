@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Organizate;
+using Rotativa;
 
 namespace Organizate.Controllers
 {
@@ -17,43 +18,28 @@ namespace Organizate.Controllers
         // GET: Profesors
         public ActionResult Index()
         {
-            if (Request.IsAuthenticated)
-            {
-                return View(db.Profesor.ToList());
-            }
-            return RedirectToAction("Login", "Account", new { returnUrl = "~/Profesors/Index" });
-            
+            return View(db.Profesor.ToList());
         }
 
         // GET: Profesors/Details/5
         public ActionResult Details(string id)
         {
-            if (Request.IsAuthenticated)
+            if (id == null)
             {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-                Profesor profesor = db.Profesor.Find(id);
-                if (profesor == null)
-                {
-                    return HttpNotFound();
-                }
-                return View(profesor);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            return RedirectToAction("Login", "Account", new { returnUrl = "~/Profesors/Index" });
-            
+            Profesor profesor = db.Profesor.Find(id);
+            if (profesor == null)
+            {
+                return HttpNotFound();
+            }
+            return View(profesor);
         }
 
         // GET: Profesors/Create
         public ActionResult Create()
         {
-            if (Request.IsAuthenticated)
-            {
-                return RedirectToAction("Register", "Account");
-            }
-            return RedirectToAction("Login", "Account", new { returnUrl = "~/Profesors/Create" });
-           
+            return RedirectToAction("Register", "Account");
         }
 
         // POST: Profesors/Create
@@ -76,21 +62,16 @@ namespace Organizate.Controllers
         // GET: Profesors/Edit/5
         public ActionResult Edit(string id)
         {
-            if (Request.IsAuthenticated)
+            if (id == null)
             {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-                Profesor profesor = db.Profesor.Find(id);
-                if (profesor == null)
-                {
-                    return HttpNotFound();
-                }
-                return View(profesor);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            return RedirectToAction("Login", "Account", new { returnUrl = "~/Profesors/Index" });
-            
+            Profesor profesor = db.Profesor.Find(id);
+            if (profesor == null)
+            {
+                return HttpNotFound();
+            }
+            return View(profesor);
         }
 
         // POST: Profesors/Edit/5
@@ -112,20 +93,16 @@ namespace Organizate.Controllers
         // GET: Profesors/Delete/5
         public ActionResult Delete(string id)
         {
-            if (Request.IsAuthenticated)
+            if (id == null)
             {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-                Profesor profesor = db.Profesor.Find(id);
-                if (profesor == null)
-                {
-                    return HttpNotFound();
-                }
-                return View(profesor);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            return RedirectToAction("Login", "Account", new { returnUrl = "~/Profesors/Index" });
+            Profesor profesor = db.Profesor.Find(id);
+            if (profesor == null)
+            {
+                return HttpNotFound();
+            }
+            return View(profesor);
         }
 
         // POST: Profesors/Delete/5
@@ -146,6 +123,13 @@ namespace Organizate.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        public ActionResult Export()
+        {
+            return new ActionAsPdf("Index")
+            {
+                FileName = Server.MapPath("~/Content/Reporter.pdf")
+            };
         }
     }
 }
