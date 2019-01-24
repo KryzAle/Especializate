@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rotativa;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,7 +17,6 @@ namespace Organizate.Controllers
         }
         public ActionResult ReporteEstudiante(String cedula)
         {
-            List<Tema> currentTema;
             List<Tema> temas = new List<Tema>();
             Estudiante estudiante = db.Estudiante.Where(x => x.est_cedula == cedula).FirstOrDefault();
             if (estudiante!=null)
@@ -25,17 +25,7 @@ namespace Organizate.Controllers
                 List<Asistencia> asistencia = db.Asistencia.Where(x => x.asi_est_id == idStudent).ToList();
                 ViewBag.asistencia = asistencia;
                 ViewBag.inscripcion = estudiante.Inscripcion.Last();
-
-                foreach(var asistenciavalor in asistencia)
-                {
-                    currentTema = db.Tema.Where(x => x.tema_id == asistenciavalor.asi_tema_id).ToList();
-                    temas.Add(new Tema {
-                        tema_id = currentTema.Last().tema_id,
-                        tema_nombre = currentTema.Last().tema_nombre,
-                        tema_pro_mat_id = currentTema.Last().tema_pro_mat_id
-                    });
-                }                
-                ViewBag.tema = temas;
+                ViewBag.transcurrido = estudiante.Inscripcion.Last().ins_total_horas - estudiante.Inscripcion.Last().ins_saldo;
                 return View(estudiante);
             }
             else
@@ -115,6 +105,21 @@ namespace Organizate.Controllers
             {
                 return View();
             }
+        }
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+        public ActionResult Export(String cedula)
+        {
+            return new ActionAsPdf("ReporteEstudiante", new { cedula })
+            {
+                FileName = Server.MapPath("~/Content/Reporter.pdf")
+            };
         }
     }
 }
