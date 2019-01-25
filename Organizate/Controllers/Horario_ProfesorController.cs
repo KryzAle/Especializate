@@ -56,7 +56,7 @@ namespace Organizate.Controllers
             ViewBag.hor_pro_pro_id = new SelectList(db.Profesor, "pro_id", "pro_nombre", horario_Profesor.hor_pro_pro_id);
             return View(horario_Profesor);
         }
-        public ActionResult Index()
+        /*public ActionResult Index()
         {
             if (Request.IsAuthenticated)
             {
@@ -65,10 +65,10 @@ namespace Organizate.Controllers
             }
             return RedirectToAction("Login", "Account", new { returnUrl = "~/Horario_Profesor/Index" });
             
-        }
+        }*/
 
         // GET: Horario_Profesor/Details/5
-        public ActionResult Details(int? id)
+       /* public ActionResult Details(int? id)
         {
             if (Request.IsAuthenticated)
             {
@@ -116,7 +116,7 @@ namespace Organizate.Controllers
             ViewBag.hor_pro_pro_id = new SelectList(db.Profesor, "pro_id", "pro_nombre", horario_Profesor.hor_pro_pro_id);
             return View(horario_Profesor);
         }
-
+        */
         // GET: Horario_Profesor/Edit/5
         public ActionResult Edit(int? id)
         {

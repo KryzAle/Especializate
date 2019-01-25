@@ -31,7 +31,7 @@ namespace Organizate.Controllers
             return RedirectToAction("Login", "Account",new { returnUrl = "~/Home/IndexAdmin"});
         }
 
-        public ActionResult About()
+       /* public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
 
@@ -43,7 +43,7 @@ namespace Organizate.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
-        }
+        }*/
 
     }
 }

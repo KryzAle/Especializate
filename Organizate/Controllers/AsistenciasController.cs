@@ -192,7 +192,7 @@ namespace Organizate.Controllers
         }
 
         // GET: Asistencias/Details/5
-        public ActionResult Details(int? id)
+       /* public ActionResult Details(int? id)
         {
             if (Request.IsAuthenticated)
             {
@@ -210,7 +210,7 @@ namespace Organizate.Controllers
             return RedirectToAction("Login", "Account", new { returnUrl = "~/Asistencias/Index" });
             
         }
-
+        */
         // GET: Asistencias/Create
         public ActionResult BuscarAsistencia()
         {
@@ -226,7 +226,7 @@ namespace Organizate.Controllers
                 ViewBag.materia = new SelectList(materias.ToList(), "mat_id", "mat_nombre");
                 return View();
             }
-            return RedirectToAction("Login", "Account", new { returnUrl = "~/Asistencias/Create" });
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Asistencias/BuscarAsistencia" });
 
 
         }
@@ -256,7 +256,9 @@ namespace Organizate.Controllers
 
         public ActionResult TomarLista(DateTime? fecha, int? idTema)
         {
-            if(fecha != null && idTema != null)
+            if (Request.IsAuthenticated)
+            {
+                if (fecha != null && idTema != null)
             {
                 List<Asistencia> estudianteLista = db.Asistencia.Where(x => x.asi_fecha == fecha && x.asi_tema_id == idTema && x.asi_tiempo==0).ToList();
 
@@ -270,6 +272,8 @@ namespace Organizate.Controllers
                         return View(asistenciaLista);
             }
             return RedirectToAction("Index");
+            }
+            return RedirectToAction("Login", "Account", new { returnUrl = "~/Asistencias/Index" });
         }
         
         [HttpPost]
