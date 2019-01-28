@@ -261,15 +261,18 @@ namespace Organizate.Controllers
                 if (fecha != null && idTema != null)
             {
                 List<Asistencia> estudianteLista = db.Asistencia.Where(x => x.asi_fecha == fecha && x.asi_tema_id == idTema && x.asi_tiempo==0).ToList();
-
+                    if (estudianteLista.Count() != 0)
+                    {
                         Tema tema = db.Tema.Find(estudianteLista.First().asi_tema_id);
-                        ViewBag.materia = tema.Profesor_Materia;
-                        ViewBag.tema = tema;
-                        AsistenciaLista asistenciaLista = new AsistenciaLista();
-                        asistenciaLista.asistencias = estudianteLista;
-                        asistenciaLista.fecha =(DateTime) fecha;
-                        asistenciaLista.horaInicio = estudianteLista.First().asi_hora_inicio;
-                        return View(asistenciaLista);
+                                    ViewBag.materia = tema.Profesor_Materia;
+                                    ViewBag.tema = tema;
+                                    AsistenciaLista asistenciaLista = new AsistenciaLista();
+                                    asistenciaLista.asistencias = estudianteLista;
+                                    asistenciaLista.fecha =(DateTime) fecha;
+                                    asistenciaLista.horaInicio = estudianteLista.First().asi_hora_inicio;
+                                    return View(asistenciaLista);
+                    }
+                    return RedirectToAction("BuscarAsistencia");
             }
             return RedirectToAction("Index");
             }

@@ -21,42 +21,48 @@
     </div>
     <br />
     <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.asi_fecha)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.asi_hora_inicio)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Tema.tema_nombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Estudiante.est_nombre)
-            </th>
-            <th></th>
-        </tr>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.asi_fecha)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.asi_hora_inicio)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Tema.tema_nombre)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Estudiante.est_nombre)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Tema.Profesor_Materia.Profesor.pro_nombre)
+			</th>
+			<th></th>
+		</tr>
 
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.asi_fecha)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.asi_hora_inicio)
-                </td>
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.asi_fecha)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.asi_hora_inicio)
+			</td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.Tema.tema_nombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Estudiante.nombreCompleto)
-                </td>
-                <td>
-                    <a href="@Url.Action("Delete","Asistencias", new { id = item.asi_id })"><i class="fa fa-2x fa-trash"></i></a>
-                </td>
-            </tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.Tema.tema_nombre)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Estudiante.nombreCompleto)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Tema.Profesor_Materia.Profesor.nombreCompleto)
+			</td>
+			<td>
+				<a href="@Url.Action("Delete","Asistencias", new { id = item.asi_id })"><i class="fa fa-2x fa-trash"></i></a>
+			</td>
+		</tr>
         }
 
     </table>

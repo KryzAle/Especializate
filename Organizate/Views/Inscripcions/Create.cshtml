@@ -18,48 +18,49 @@
 	{
 		@Html.AntiForgeryToken()
 
-		if (User.IsInRole("Administrador"))
+		if (User.IsInRole("Secretaria") || User.IsInRole("Administrador"))
 		{
-		<div class="form-horizontal">
-			<hr />
-			@Html.ValidationSummary(true, "", new { @class = "text-danger" })
-			<div class="form-group">
-				@Html.LabelFor(model => model.ins_fecha, htmlAttributes: new { @class = "control-label col-md-2" })
-				<div class="col-md-10">
-					@Html.EditorFor(model => model.ins_fecha, new { htmlAttributes = new { @class = "form-control" } })
-					@Html.ValidationMessageFor(model => model.ins_fecha, "", new { @class = "text-danger" })
+			<div class="form-horizontal">
+				<hr />
+				@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+				<div class="form-group">
+					@Html.LabelFor(model => model.ins_fecha, htmlAttributes: new { @class = "control-label col-md-2" })
+					<div class="col-md-10">
+						@Html.EditorFor(model => model.ins_fecha, new { htmlAttributes = new { @class = "form-control" } })
+						@Html.ValidationMessageFor(model => model.ins_fecha, "", new { @class = "text-danger" })
+					</div>
 				</div>
-			</div>
 
-			<div class="form-group">
-				@Html.LabelFor(model => model.ins_total_horas, htmlAttributes: new { @class = "control-label col-md-2" })
-				<div class="col-md-10">
-					@Html.EditorFor(model => model.ins_total_horas, new { htmlAttributes = new { @class = "form-control" } })
-					@Html.ValidationMessageFor(model => model.ins_total_horas, "", new { @class = "text-danger" })
+				<div class="form-group">
+					@Html.LabelFor(model => model.ins_total_horas, htmlAttributes: new { @class = "control-label col-md-2" })
+					<div class="col-md-10">
+						@Html.EditorFor(model => model.ins_total_horas, new { htmlAttributes = new { @class = "form-control" } })
+						@Html.ValidationMessageFor(model => model.ins_total_horas, "", new { @class = "text-danger" })
+					</div>
 				</div>
-			</div>
 
-			<div class="form-group">
-				@Html.LabelFor(model => model.ins_est_id, "Estudiante", htmlAttributes: new { @class = "control-label col-md-2" })
-				<div class="col-md-10">
-					@Html.DropDownList("ins_est_id", null, htmlAttributes: new { @class = "form-control" })
-					@Html.ValidationMessageFor(model => model.ins_est_id, "", new { @class = "text-danger" })
+				<div class="form-group">
+					@Html.LabelFor(model => model.ins_est_id, "Estudiante", htmlAttributes: new { @class = "control-label col-md-2" })
+					<div class="col-md-10">
+						@Html.DropDownList("ins_est_id", null, htmlAttributes: new { @class = "form-control" })
+						@Html.ValidationMessageFor(model => model.ins_est_id, "", new { @class = "text-danger" })
+					</div>
 				</div>
-			</div>
 
-			<div class="form-group">
-				<div>
-					<h1 class="col-md-offset-1"><a href="@Url.Action("Index","Inscripcions")"><i class="fa fa-arrow-circle-left fa-fw"></i></a></h1>
-				</div>
-				<div class="col-md-offset-3 col-md-1">
-					<input type="submit" value="Guardar" class="btn btn-success" />
+				<div class="form-group">
+					<div>
+						<h1 class="col-md-offset-1"><a href="@Url.Action("Index","Inscripcions")"><i class="fa fa-arrow-circle-left fa-fw"></i></a></h1>
+					</div>
+					<div class="col-md-offset-3 col-md-1">
+						<input type="submit" value="Guardar" class="btn btn-success" />
+					</div>
 				</div>
 			</div>
-		</div>
 		}
-		else {
+		else
+		{
 			<h3>Usted No tiene permiso para estar aqui</h3>
 		}
 	}
 
-	</div>
+</div>

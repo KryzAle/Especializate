@@ -1,0 +1,117 @@
+﻿@model Organizate.Profesor
+
+@{
+	ViewBag.Title = "ReporteProfesor";
+	Layout = "~/Views/Shared/_LayoutReport.cshtml";
+	var asis = ViewBag.asistencia as IEnumerable<Organizate.Asistencia>;
+}
+<div class="container">
+	<center>
+		<h2>
+			<FONT FACE="impact" SIZE=20 COLOR="Blue">
+				Actividades de Enseñanza
+			</FONT>
+		</h2>
+	</center>
+	<div>
+		<h1 class="col-md-offset-1"><a href="@Url.Action("Index", "Asistencias")"><i class="fa fa-arrow-circle-left fa-fw"></i></a></h1>
+	</div>
+	<table class="table">
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.pro_nombre)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.pro_profesion)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.pro_telefono)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.pro_direccion)
+			</th>
+
+			<th></th>
+		</tr>
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => Model.nombreCompleto)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => Model.pro_profesion)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => Model.pro_telefono)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => Model.pro_direccion)
+			</td>
+		</tr>
+
+	</table>@if (asis.Count() > 0)
+	{
+
+		<table class="table">
+			<tr>
+				<th>
+					Fecha
+				</th>
+				<th>
+					Hora Entrada
+				</th>
+				<th>
+					Hora Salida
+				</th>
+				<th>
+					Materia
+				</th>
+				<th>
+					Tema
+				</th>
+				<th>
+					Nombre Estudiante
+				</th>
+				<th></th>
+			</tr>
+
+			@foreach (var item in asis)
+			{
+
+
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.asi_fecha)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.asi_hora_inicio)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.asi_hora_fin)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Tema.Profesor_Materia.Materia.mat_nombre)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Tema.tema_nombre)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Estudiante.nombreCompleto)
+				</td>
+			</tr>
+			}
+		</table>
+
+	}
+	else
+	{
+		<center>
+			<h4>Usted No posee asistencias</h4>
+		</center>
+	}
+
+	<br><br>
+
+	<center> <a href="@Url.Action("ExportProfesor","Reportes")" class="btn btn-danger"><img src="~/Content/img/pdfimg.png" alt="Genera PDF" width="60px" height="60px" /></a></center>
+
+	<br><br>
+</div>

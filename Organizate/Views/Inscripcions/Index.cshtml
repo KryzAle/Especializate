@@ -6,67 +6,68 @@
 }
 
 <div id="page-wrapper">
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header text-center">Inscripciones</h1>
-        </div>
-        <!-- /.col-lg-12 -->
-    </div>
-    @if (User.IsInRole("Administrador"))
-    {
-        <div class="row">
-            <div class="col col-md-3">
-                <a href="@Url.Action("Create", "Inscripcions")" class="btn btn-success">Agregar Inscripcion</a>
-            </div>
-        </div>
-        <br />
-        <div class="row">
-            <table class="table">
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ins_fecha)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ins_valor)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ins_total_horas)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ins_saldo)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Estudiante.est_nombre)
-                    </th>
+	<div class="row">
+		<div class="col-lg-12">
+			<h1 class="page-header text-center">Inscripciones</h1>
+		</div>
+		<!-- /.col-lg-12 -->
+	</div>
+	@if (User.IsInRole("Secretaria") || User.IsInRole("Administrador"))
+	{
+		<div class="row">
+			<div class="col col-md-3">
+				<a href="@Url.Action("Create", "Inscripcions")" class="btn btn-success">Agregar Inscripcion</a>
+			</div>
+		</div>
+		<br />
+		<div class="row">
+			<table class="table">
+				<tr>
+					<th>
+						@Html.DisplayNameFor(model => model.ins_fecha)
+					</th>
+					<th>
+						@Html.DisplayNameFor(model => model.ins_valor)
+					</th>
+					<th>
+						@Html.DisplayNameFor(model => model.ins_total_horas)
+					</th>
+					<th>
+						@Html.DisplayNameFor(model => model.ins_saldo)
+					</th>
+					<th>
+						@Html.DisplayNameFor(model => model.Estudiante.est_nombre)
+					</th>
 
-                </tr>
+				</tr>
 
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ins_fecha)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ins_valor)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ins_total_horas)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ins_saldo)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Estudiante.est_nombre) @Html.DisplayFor(modelItem => item.Estudiante.est_apellido)
-                        </td>
+				@foreach (var item in Model)
+				{
+					<tr>
+						<td>
+							@Html.DisplayFor(modelItem => item.ins_fecha)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.ins_valor)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.ins_total_horas)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.ins_saldo)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.Estudiante.est_nombre) @Html.DisplayFor(modelItem => item.Estudiante.est_apellido)
+						</td>
 
-                    </tr>
-                }
+					</tr>
+				}
 
-            </table>
-        </div>
-    }
-    else {
-        <h3>Usted No tiene permisos</h3>
-    }
+			</table>
+		</div>
+	}
+	else
+	{
+		<h3>Usted No tiene permisos</h3>
+	}
 </div>

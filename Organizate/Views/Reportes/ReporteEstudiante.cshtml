@@ -9,8 +9,12 @@
 	Layout = "~/Views/Shared/_LayoutReport.cshtml";
 }
 <div class="container">
-	<center><h2>Reporte Estudiante - Centro de Capacitacion</h2></center>
+	<center><h2><FONT FACE="impact" SIZE=20 COLOR="Blue">
+ Actividades de Enseñanza</FONT></h2></center>
 
+	<div>
+		<h1 class="col-md-offset-1"><a href="@Url.Action("Index", "Home")"><i class="fa fa-arrow-circle-left fa-fw"></i></a></h1>
+	</div>
 	<table class="table">
 		<tr>
 			<th>
@@ -129,7 +133,7 @@
 	}
 	<br><br>
 
-	<center> <a href="@Url.Action("Export","Reportes", new {cedula = Model.est_cedula })" class="btn btn-danger"><img src="~/Content/img/pdfimg.png" alt="Genera PDF" width="60px" height="60px"/></a></center>
+	<center> <a href="@Url.Action("Export","Reportes", new {cedula = Model.est_cedula })" class="btn btn-danger"><img src="~/Content/img/pdfimg.png" alt="Genera PDF" width="60px" height="60px" /></a></center>
 
 	<br><br>
 </div>
